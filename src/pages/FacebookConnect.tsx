@@ -9,7 +9,7 @@ import { Switch } from '@/components/ui/switch';
 import { Progress } from '@/components/ui/progress';
 import { useRealTimeData } from '@/hooks/useRealTimeData';
 import { 
-  Instagram, 
+  Facebook, 
   Plus, 
   Settings, 
   Shield, 
@@ -22,11 +22,11 @@ import {
   Loader2
 } from 'lucide-react';
 
-const InstagramConnect = () => {
-  const { instagramAccounts, stats, loading } = useRealTimeData();
+const FacebookConnect = () => {
+  const { facebookAccounts, stats, loading } = useRealTimeData();
   
   // Map real data to display format
-  const accounts = instagramAccounts.map(account => ({
+  const accounts = facebookAccounts.map(account => ({
     id: account.id,
     username: account.account_name,
     status: account.status,
@@ -65,8 +65,8 @@ const InstagramConnect = () => {
           <div className="mb-8 animate-fade-up">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h1 className="text-3xl font-bold font-display text-text-primary">Instagram Accounts</h1>
-                <p className="text-text-muted">Connect and manage your Instagram accounts for voice DM automation</p>
+                <h1 className="text-3xl font-bold font-display text-text-primary">Facebook Accounts</h1>
+                <p className="text-text-muted">Connect and manage your Facebook accounts for voice DM automation</p>
               </div>
               <Button className="bg-gradient-primary hover:shadow-primary hover-lift">
                 <Plus className="h-4 w-4 mr-2" />
@@ -84,10 +84,10 @@ const InstagramConnect = () => {
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
-                        <Instagram className="h-5 w-5 text-accent" />
+                        <Facebook className="h-5 w-5 text-accent" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-text-primary">{instagramAccounts.length}</p>
+                        <p className="text-2xl font-bold text-text-primary">{facebookAccounts.length}</p>
                         <p className="text-sm text-text-muted">Connected Accounts</p>
                       </div>
                     </div>
@@ -142,8 +142,8 @@ const InstagramConnect = () => {
                       <div key={account.id} className="p-6 rounded-lg bg-surface/50 hover:bg-surface transition-all hover-lift" style={{ animationDelay: `${index * 0.1}s` }}>
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-4">
-                          <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center">
-                            <Instagram className="h-6 w-6 text-white" />
+                          <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center">
+                            <Facebook className="h-6 w-6 text-white" />
                           </div>
                           <div>
                             <h4 className="font-semibold text-text-primary">{account.username}</h4>
@@ -199,7 +199,7 @@ const InstagramConnect = () => {
                     ))
                   ) : (
                     <div className="text-center py-8">
-                      <p className="text-text-muted">No Instagram accounts connected yet. Add your first account to get started!</p>
+                      <p className="text-text-muted">No Facebook accounts connected yet. Add your first account to get started!</p>
                     </div>
                   )}
                 </CardContent>
@@ -214,10 +214,10 @@ const InstagramConnect = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="username" className="text-text-primary">Instagram Username</Label>
+                    <Label htmlFor="username" className="text-text-primary">Facebook Username</Label>
                     <Input
                       id="username"
-                      placeholder="@your_username"
+                      placeholder="your_username"
                       className="bg-surface border-border"
                     />
                   </div>
@@ -233,7 +233,7 @@ const InstagramConnect = () => {
                   </div>
                   
                   <Button className="w-full bg-gradient-primary hover:shadow-primary">
-                    <Instagram className="h-4 w-4 mr-2" />
+                    <Facebook className="h-4 w-4 mr-2" />
                     Connect Account
                   </Button>
                   
@@ -291,4 +291,4 @@ const InstagramConnect = () => {
   );
 };
 
-export default InstagramConnect;
+export default FacebookConnect;

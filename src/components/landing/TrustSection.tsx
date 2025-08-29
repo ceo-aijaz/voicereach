@@ -8,7 +8,7 @@ export function TrustSection() {
       name: "Sarah Chen",
       role: "Marketing Director, GrowthLab",
       avatar: "SC",
-      content: "VoiceLead increased our Instagram DM response rate from 8% to 31%. The personalization is incredible.",
+      content: "VoiceLead increased our Facebook DM response rate from 8% to 31%. The personalization is incredible.",
       rating: 5,
       results: "+287% response rate"
     },
@@ -43,8 +43,8 @@ export function TrustSection() {
     },
     {
       icon: Shield,
-      title: "Instagram Safe",
-      description: "Built to comply with Instagram's terms of service"
+      title: "Facebook Safe",
+      description: "Built to comply with Facebook's terms of service"
     }
   ];
 

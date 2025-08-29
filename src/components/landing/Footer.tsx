@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Mic, Zap, Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
+import { Mic, Zap, Facebook, Twitter, Linkedin, Youtube } from 'lucide-react';
 
 const footerLinks = {
   product: [
@@ -34,7 +34,7 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Instagram, href: 'https://instagram.com/voicelead', label: 'Instagram' },
+  { icon: Facebook, href: 'https://facebook.com/voicelead', label: 'Facebook' },
   { icon: Twitter, href: 'https://twitter.com/voicelead', label: 'Twitter' },
   { icon: Linkedin, href: 'https://linkedin.com/company/voicelead', label: 'LinkedIn' },
   { icon: Youtube, href: 'https://youtube.com/voicelead', label: 'YouTube' }
@@ -63,7 +63,7 @@ export function Footer() {
             </div>
             
             <p className="text-text-muted mb-6 max-w-sm">
-              The world's most advanced Instagram voice automation platform. 
+              The world's most advanced Facebook voice automation platform. 
               Turn your voice into your most powerful sales asset.
             </p>
             

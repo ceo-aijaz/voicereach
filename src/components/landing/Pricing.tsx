@@ -14,7 +14,7 @@ const plans = [
     gradient: 'from-blue-500 to-cyan-500',
     popular: false,
     features: [
-      '3 Instagram accounts',
+      '3 Facebook accounts',
       '900 Voice DMs per Account',
       'Basic voice cloning + Built-in Templates',
       'Basic Lead Scraping',
@@ -31,7 +31,7 @@ const plans = [
     gradient: 'from-purple-500 to-pink-500',
     popular: true,
     features: [
-      '9 Instagram accounts',
+      '9 Facebook accounts',
       '1200 Voice DMs per Account',
       'Advanced voice cloning + 10 Built-in voice templates',
       'Unlimited Lead Scraping',
@@ -52,7 +52,7 @@ const plans = [
     gradient: 'from-orange-500 to-red-500',
     popular: false,
     features: [
-      'Unlimited Instagram Accounts',
+      'Unlimited Facebook Accounts',
       '1500 Voice DMs per Account',
       'Custom voice training and voice Cloning feature + unlimited premium Built-in voice templates',
       'Scrape Unlimited Leads',

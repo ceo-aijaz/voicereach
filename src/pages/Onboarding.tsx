@@ -14,7 +14,7 @@ import {
   Users, 
   Target, 
   Mic2,
-  Instagram,
+  Facebook,
   TrendingUp
 } from 'lucide-react';
 
@@ -136,7 +136,7 @@ const Onboarding = () => {
             {[
               { id: 'lead-gen', label: 'Generate More Leads', icon: Target },
               { id: 'response-rate', label: 'Increase Response Rates', icon: TrendingUp },
-              { id: 'automate', label: 'Automate Outreach', icon: Instagram },
+              { id: 'automate', label: 'Automate Outreach', icon: Facebook },
               { id: 'scale', label: 'Scale Agency Operations', icon: Users }
             ].map((goal) => (
               <Button

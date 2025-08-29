@@ -14,7 +14,7 @@ const faqs = [
     answer: "VoiceLead uses advanced AI to clone your voice with just 2 minutes of audio. Our technology analyzes your vocal patterns, tone, and inflection to create a realistic voice model that can generate personalized messages at scale while maintaining authenticity."
   },
   {
-    question: "Is it safe to use multiple Instagram accounts?",
+    question: "Is it safe to use multiple Facebook accounts?",
     answer: "Yes, VoiceLead includes built-in anti-detection features like smart scheduling, human-like delays, and IP rotation. Our system mimics natural user behavior to keep your accounts safe while maximizing your outreach potential."
   },
   {

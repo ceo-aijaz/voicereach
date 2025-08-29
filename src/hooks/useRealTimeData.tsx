@@ -55,7 +55,7 @@ export interface Lead {
   score?: number;
 }
 
-export interface InstagramAccount {
+export interface FacebookAccount {
   id: string;
   user_id: string;
   platform: string;
@@ -86,7 +86,7 @@ export const useRealTimeData = () => {
   
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
-  const [instagramAccounts, setInstagramAccounts] = useState<InstagramAccount[]>([]);
+  const [facebookAccounts, setFacebookAccounts] = useState<FacebookAccount[]>([]);
   const [loading, setLoading] = useState(true);
 
   const fetchCampaigns = async () => {
@@ -133,7 +133,7 @@ export const useRealTimeData = () => {
     }));
   };
 
-  const fetchInstagramAccounts = async () => {
+  const fetchFacebookAccounts = async () => {
     if (!user) return;
     
     const { data, error } = await supabase
@@ -143,11 +143,11 @@ export const useRealTimeData = () => {
       .order('created_at', { ascending: false });
     
     if (error) {
-      console.error('Error fetching Instagram accounts:', error);
+      console.error('Error fetching Facebook accounts:', error);
       return;
     }
     
-    setInstagramAccounts(data || []);
+    setFacebookAccounts(data || []);
     return data || [];
   };
 
@@ -181,7 +181,7 @@ export const useRealTimeData = () => {
       const [campaignsData, leadsData] = await Promise.all([
         fetchCampaigns(),
         fetchLeads(),
-        fetchInstagramAccounts(),
+        fetchFacebookAccounts(),
       ]);
 
       if (campaignsData && leadsData) {
@@ -249,7 +249,7 @@ export const useRealTimeData = () => {
           filter: `user_id=eq.${user.id}`,
         },
         () => {
-          fetchInstagramAccounts();
+          fetchFacebookAccounts();
         }
       )
       .subscribe();
@@ -265,7 +265,7 @@ export const useRealTimeData = () => {
     stats,
     campaigns,
     leads,
-    instagramAccounts,
+    facebookAccounts,
     loading,
     refetch: fetchAllData,
   };

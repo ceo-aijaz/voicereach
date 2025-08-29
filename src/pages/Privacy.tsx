@@ -14,7 +14,7 @@ const Privacy = () => {
         'Account information (name, email, company details)',
         'Usage data (campaign performance, message statistics)',
         'Voice recordings for cloning purposes',
-        'Instagram account connection data',
+        'Facebook account connection data',
         'Payment and billing information',
         'Support communications and feedback'
       ]

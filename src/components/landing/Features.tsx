@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { 
   Mic2, 
-  Instagram, 
+  Facebook, 
   Target, 
   Brain, 
-  Workflow, 
+  Workflow,
   BarChart3,
   Zap,
   Shield,
@@ -30,11 +30,11 @@ const features = [
     gradient: 'from-blue-500 to-purple-500'
   },
   {
-    icon: Instagram,
-    title: 'Instagram DM Automation',
+    icon: Facebook,
+    title: 'Facebook DM Automation',
     description: 'Send UpTo 1500 Voice DMs per month across multiple accounts with smart scheduling and anti-detection.',
     badge: 'Premium',
-    gradient: 'from-pink-500 to-rose-500'
+    gradient: 'from-blue-500 to-blue-600'
   },
   {
     icon: Target,
@@ -70,7 +70,7 @@ const stats = [
   { icon: Zap, value: '150+', label: 'DMs per account/day', color: 'text-warning' },
   { icon: Shield, value: '99.9%', label: 'Platform uptime', color: 'text-accent' },
   { icon: Clock, value: '5min', label: 'Setup time', color: 'text-primary' },
-  { icon: Users, value: '15+', label: 'Instagram accounts', color: 'text-purple-500' }
+  { icon: Users, value: '15+', label: 'Facebook accounts', color: 'text-blue-500' }
 ];
 
 export function Features() {
@@ -93,7 +93,7 @@ export function Features() {
           </h2>
           <p className="text-lg sm:text-xl lg:text-2xl text-text-muted leading-relaxed mb-8">
             From voice cloning to campaign automation, VoiceLead gives you everything needed to 
-            <span className="text-primary font-semibold"> dominate Instagram outreach</span> and 10x your response rates.
+            <span className="text-primary font-semibold"> dominate Facebook outreach</span> and 10x your response rates.
           </p>
           <Link to="/auth">
             <Button className="bg-gradient-primary hover:shadow-premium text-white text-lg font-bold px-8 py-4 h-auto hover-premium group rounded-2xl border-0 shadow-xl uppercase tracking-wide hover-scale transition-all duration-300">

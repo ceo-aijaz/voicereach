@@ -67,7 +67,7 @@ const Leads = () => {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h1 className="text-3xl font-bold font-display text-text-primary">Lead Management</h1>
-                <p className="text-text-muted">Discover, score, and manage your Instagram leads</p>
+                <p className="text-text-muted">Discover, score, and manage your Facebook leads</p>
               </div>
               <div className="flex space-x-3">
                 <Button variant="outline" className="border-border hover:bg-surface">

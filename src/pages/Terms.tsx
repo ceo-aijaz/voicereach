@@ -20,12 +20,12 @@ const Terms = () => {
     {
       title: 'Service Description',
       icon: Users,
-      content: `VoiceLead provides AI-powered voice cloning and automated Instagram DM services. Our platform allows users to create voice clones, manage lead databases, and automate personalized outreach campaigns. We reserve the right to modify, suspend, or discontinue any part of our service at any time with reasonable notice.`
+      content: `VoiceLead provides AI-powered voice cloning and automated Facebook DM services. Our platform allows users to create voice clones, manage lead databases, and automate personalized outreach campaigns. We reserve the right to modify, suspend, or discontinue any part of our service at any time with reasonable notice.`
     },
     {
       title: 'User Responsibilities',
       icon: Shield,
-      content: `Users are responsible for: maintaining the confidentiality of their account; ensuring all activities under their account comply with applicable laws; obtaining necessary consents for voice cloning; respecting Instagram's terms of service; not using the service for spam, harassment, or illegal activities; providing accurate information during registration.`
+      content: `Users are responsible for: maintaining the confidentiality of their account; ensuring all activities under their account comply with applicable laws; obtaining necessary consents for voice cloning; respecting Facebook's terms of service; not using the service for spam, harassment, or illegal activities; providing accurate information during registration.`
     },
     {
       title: 'Payment Terms',
@@ -80,7 +80,7 @@ const Terms = () => {
                   <p className="text-text-muted leading-relaxed mb-4">
                     These Terms of Service ("Terms") govern your use of VoiceLead's website and services. 
                     VoiceLead ("we", "us", or "our") provides AI-powered voice cloning and automated 
-                    Instagram outreach services.
+                    Facebook outreach services.
                   </p>
                   <p className="text-text-muted leading-relaxed">
                     By creating an account or using our services, you agree to be bound by these Terms. 

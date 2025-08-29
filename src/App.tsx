@@ -16,7 +16,7 @@ import Onboarding from "./pages/Onboarding";
 import Pricing from "./pages/PricingPage";
 import Dashboard from "./pages/Dashboard";
 import Leads from "./pages/Leads";
-import InstagramConnect from "./pages/InstagramConnect";
+import FacebookConnect from "./pages/FacebookConnect";
 import Campaigns from "./pages/Campaigns";
 import VoiceCloning from "./pages/VoiceCloning";
 import Settings from "./pages/Settings";
@@ -71,7 +71,7 @@ const App = () => (
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
               <Route path="/leads" element={<ProtectedRoute><Leads /></ProtectedRoute>} />
-              <Route path="/instagram" element={<ProtectedRoute><InstagramConnect /></ProtectedRoute>} />
+              <Route path="/facebook" element={<ProtectedRoute><FacebookConnect /></ProtectedRoute>} />
               <Route path="/campaigns" element={<ProtectedRoute><Campaigns /></ProtectedRoute>} />
               <Route path="/voice" element={<ProtectedRoute><VoiceCloning /></ProtectedRoute>} />
               <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
