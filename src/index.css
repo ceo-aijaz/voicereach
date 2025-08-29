@@ -197,6 +197,17 @@
     box-shadow: var(--shadow-glass);
   }
   
+  .glass-mobile {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-glass);
+    /* Optimize for mobile performance */
+    transform: translateZ(0);
+    will-change: backdrop-filter;
+  }
+  
   .glass-premium {
     background: linear-gradient(145deg, hsla(0, 0%, 100%, 0.15) 0%, hsla(0, 0%, 100%, 0.05) 100%);
     border: 1px solid hsla(0, 0%, 100%, 0.2);
@@ -273,6 +284,31 @@
   
   .hover-scale:hover {
     transform: scale(1.03);
+  }
+
+  /* Mobile-First Responsive Effects */
+  .mobile-touch {
+    @apply active:scale-95 transition-transform duration-150;
+  }
+
+  .mobile-friendly {
+    @apply touch-manipulation select-none;
+  }
+
+  /* Enhanced Glass Effects for Mobile */
+  .glass-mobile {
+    @apply glass;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Safe Area for Mobile */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
   }
   
   .hover-glow {
@@ -376,6 +412,30 @@
   
   .section-margin {
     @apply py-16 lg:py-24;
+  }
+
+  /* Mobile-First Responsive Effects */
+  .mobile-touch {
+    @apply active:scale-95 transition-transform duration-150;
+  }
+
+  .mobile-friendly {
+    @apply touch-manipulation select-none;
+  }
+
+  /* Safe Area for Mobile */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* GPU Acceleration */
+  .transform-gpu {
+    transform: translateZ(0);
+    will-change: transform;
   }
 }
 

@@ -45,32 +45,32 @@ const Dashboard = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-surface/30">
+    <div className="min-h-screen bg-gradient-to-br from-background via-surface/20 to-primary/5 animate-gradient-xy">
       <Sidebar />
       
-      <div className="lg:ml-64">
-        <MobileOptimized className="p-4 lg:p-8">
+      <div className="lg:ml-64 min-h-screen safe-area-top safe-area-bottom">
+        <MobileOptimized className="p-4 lg:p-8 pt-16 lg:pt-8">
           {/* Header */}
           <div className="mb-8 animate-fade-up">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-6">
               <div>
-                <h1 className="text-3xl lg:text-4xl font-bold font-display text-text-primary mb-2">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-text-primary mb-2 leading-tight">
                   Welcome Back! 
-                  <span className="text-gradient-primary animate-gradient-x bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text">
+                  <span className="block sm:inline text-gradient-primary animate-gradient-x bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text">
                     Dashboard
                   </span>
                 </h1>
-                <p className="text-text-muted text-lg">Here's your voice outreach performance overview.</p>
+                <p className="text-text-muted text-base lg:text-lg">Here's your voice outreach performance overview.</p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link to="/voice">
-                  <Button variant="outline" className="border-border hover:bg-surface hover-lift group">
+              <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                <Link to="/voice" className="w-full sm:w-auto">
+                  <Button variant="outline" className="w-full sm:w-auto border-border hover:bg-surface hover-lift group mobile-touch min-h-[48px]">
                     <Play className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
                     View Demo
                   </Button>
                 </Link>
-                <Link to="/campaigns">
-                  <Button className="bg-gradient-primary hover:shadow-premium text-white text-lg font-bold px-8 py-4 h-auto hover-premium group rounded-2xl border-0 shadow-xl uppercase tracking-wide w-full sm:w-auto hover-scale transition-all duration-300">
+                <Link to="/campaigns" className="w-full sm:w-auto">
+                  <Button className="w-full sm:w-auto bg-gradient-primary hover:shadow-premium text-white text-base lg:text-lg font-bold px-6 lg:px-8 py-3 lg:py-4 h-auto hover-premium group rounded-2xl border-0 shadow-xl uppercase tracking-wide hover-scale transition-all duration-300 mobile-touch min-h-[48px]">
                     <PlusCircle className="h-4 w-4 mr-2 group-hover:rotate-90 transition-transform" />
                     New Campaign
                     <Sparkles className="h-4 w-4 ml-2" />
