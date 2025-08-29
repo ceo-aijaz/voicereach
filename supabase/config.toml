@@ -1,0 +1,13 @@
+project_id = "yomqllxkvuwzcskyjesj"
+
+[functions.elevenlabs-voice]
+verify_jwt = true
+
+[functions.voice-generation]
+verify_jwt = true
+
+[functions.voice-cloning]
+verify_jwt = true
+
+[functions.voice-outreach]
+verify_jwt = true
