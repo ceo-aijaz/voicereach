@@ -16,7 +16,11 @@ import {
   Bell,
   Settings,
   ChevronRight,
-  Info
+  Info,
+  Mic,
+  TrendingUp,
+  Target,
+  BarChart3
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -35,73 +39,83 @@ const Dashboard = () => {
     return user?.email?.split('@')[0] || 'User';
   };
 
-  // Statistics data inspired by Dripify
+  // Statistics data for voice outreach
   const statisticsData = [
     {
-      title: 'Invites sent',
+      title: 'Voice Send',
       value: '0',
       total: '5',
       percentage: '0%',
-      icon: Users
+      icon: Mic,
+      color: 'text-primary'
     },
     {
-      title: 'Messages sent',
+      title: 'Open Rate',
       value: '0',
       total: '5',
       percentage: '0%',
-      icon: MessageSquare
+      icon: Eye,
+      color: 'text-accent'
     },
     {
-      title: 'Emails sent',
+      title: 'Profile Viewed',
       value: '0',
       total: '20',
       percentage: '0%',
-      icon: Mail
+      icon: Users,
+      color: 'text-warning'
     },
     {
-      title: 'Profile viewed',
+      title: 'Total Campaign',
       value: '0',
       total: '5',
       percentage: '0%',
-      icon: Eye
+      icon: Target,
+      color: 'text-success'
     }
   ];
 
   // Detailed stats cards
   const detailedStats = [
     {
-      title: 'PENDING INVITATIONS',
-      value: '11',
+      title: 'TOTAL VOICE SEND',
+      value: '24',
       hasAction: true,
-      actionText: 'Withdraw',
-      actionVariant: 'outline' as const
+      actionText: 'View All',
+      actionVariant: 'outline' as const,
+      icon: Mic,
+      color: 'text-primary'
     },
     {
-      title: 'UNREAD MESSAGES',
-      value: '0',
-      hasAction: false
+      title: 'ENGAGEMENT RATE',
+      value: '12.5%',
+      hasAction: false,
+      icon: TrendingUp,
+      color: 'text-accent'
     },
     {
-      title: 'PROFILE VIEWS SINCE LAST WEEK',
-      value: '0%',
-      hasAction: false
+      title: 'ACTIVE CAMPAIGNS',
+      value: '3',
+      hasAction: false,
+      icon: BarChart3,
+      color: 'text-success'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Sidebar />
       
       <div className="lg:ml-64 min-h-screen">
         <MobileOptimized className="p-6 lg:p-8 max-w-7xl mx-auto">
           {/* Campaign Status Alert */}
-          <div className="mb-6">
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center gap-3">
-              <Info className="h-5 w-5 text-blue-600 flex-shrink-0" />
+          <div className="mb-6 animate-fade-up">
+            <div className="glass border border-primary/20 rounded-lg p-4 flex items-center gap-3">
+              <Info className="h-5 w-5 text-primary flex-shrink-0" />
               <div className="flex-1">
-                <p className="text-sm text-gray-700">
+                <p className="text-sm text-text-primary">
                   Your campaigns are not operating since they're outside of working hours at the moment.{' '}
-                  <button className="text-primary hover:underline font-medium">
+                  <button className="text-primary hover:text-primary/80 font-medium transition-colors">
                     Adjust my schedule
                   </button>
                 </p>
@@ -110,11 +124,11 @@ const Dashboard = () => {
           </div>
 
           {/* Personal Greeting */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-semibold text-gray-900 mb-2">
-              {getGreeting()}, {getUserName()}! 👋
+          <div className="mb-8 animate-fade-up">
+            <h1 className="text-3xl font-bold font-display text-text-primary mb-2">
+              {getGreeting()}, {getUserName()}!
             </h1>
-            <p className="text-gray-600">Here's what's happening with your LinkedIn account today</p>
+            <p className="text-text-muted">Here's what's happening with your voice outreach campaigns today</p>
           </div>
 
           {/* Main Content Grid */}
@@ -124,8 +138,8 @@ const Dashboard = () => {
               {/* Statistics Section */}
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900">Statistics</h2>
-                  <button className="text-primary hover:underline text-sm font-medium">
+                  <h2 className="text-xl font-semibold text-text-primary">Statistics</h2>
+                  <button className="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
                     View More
                   </button>
                 </div>
@@ -133,15 +147,19 @@ const Dashboard = () => {
                 {/* Statistics Cards */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                   {statisticsData.map((stat, index) => (
-                    <Card key={index} className="bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                      <CardContent className="p-6 text-center">
-                        <div className="text-3xl font-bold text-gray-900 mb-1">
+                    <Card key={index} className="glass border-border/50 hover:border-primary/20 transition-all hover-lift animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-3">
+                          <stat.icon className={`h-5 w-5 ${stat.color}`} />
+                          <TrendingUp className="h-4 w-4 text-accent" />
+                        </div>
+                        <div className="text-2xl font-bold text-text-primary mb-1">
                           {stat.percentage}
                         </div>
-                        <div className="text-sm text-gray-600 mb-3">
+                        <div className="text-sm text-text-muted mb-2">
                           {stat.value} / {stat.total}
                         </div>
-                        <div className="text-sm font-medium text-gray-700">
+                        <div className="text-sm font-medium text-text-primary">
                           {stat.title}
                         </div>
                       </CardContent>
@@ -152,20 +170,23 @@ const Dashboard = () => {
                 {/* Detailed Statistics */}
                 <div className="grid lg:grid-cols-3 gap-6">
                   {detailedStats.map((stat, index) => (
-                    <Card key={index} className="bg-white border border-gray-200 shadow-sm">
+                    <Card key={index} className="glass border-border/50 hover:border-primary/20 transition-all hover-lift animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
                       <CardContent className="p-6">
-                        <div className="text-xs font-medium text-gray-500 mb-2 uppercase tracking-wide">
-                          {stat.title}
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="text-xs font-medium text-text-muted uppercase tracking-wide">
+                            {stat.title}
+                          </div>
+                          {stat.icon && <stat.icon className={`h-4 w-4 ${stat.color}`} />}
                         </div>
                         <div className="flex items-center justify-between">
-                          <div className="text-4xl font-bold text-gray-900">
+                          <div className="text-3xl font-bold text-text-primary">
                             {stat.value}
                           </div>
                           {stat.hasAction && (
                             <Button 
                               variant={stat.actionVariant} 
                               size="sm"
-                              className="text-sm"
+                              className="border-border hover:bg-surface text-sm"
                             >
                               {stat.actionText}
                             </Button>
@@ -179,17 +200,17 @@ const Dashboard = () => {
 
               {/* Recent Campaigns */}
               <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">Recent campaigns</h2>
-                <Card className="bg-white border border-gray-200 shadow-sm">
+                <h2 className="text-xl font-semibold text-text-primary mb-6">Recent campaigns</h2>
+                <Card className="glass border-border/50 animate-fade-up">
                   <CardContent className="p-8 text-center">
-                    <div className="text-gray-500 mb-4">
-                      <MessageSquare className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <div className="text-text-muted mb-4">
+                      <Mic className="h-12 w-12 mx-auto mb-4 text-primary" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No campaigns yet</h3>
-                    <p className="text-gray-600 mb-6">Create your first campaign to start generating leads.</p>
+                    <h3 className="text-lg font-medium text-text-primary mb-2">No voice campaigns yet</h3>
+                    <p className="text-text-muted mb-6">Create your first voice campaign to start generating leads.</p>
                     <Link to="/campaigns">
-                      <Button className="bg-primary hover:bg-primary/90 text-white">
-                        Create Campaign
+                      <Button className="bg-gradient-primary hover:shadow-primary hover-lift text-white">
+                        Create Voice Campaign
                       </Button>
                     </Link>
                   </CardContent>
@@ -200,18 +221,16 @@ const Dashboard = () => {
             {/* Right Column - Recent Activity */}
             <div className="space-y-6">
               <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-6">Recent activity</h2>
-                <Card className="bg-white border border-gray-200 shadow-sm">
+                <h2 className="text-xl font-semibold text-text-primary mb-6">Recent activity</h2>
+                <Card className="glass border-border/50 animate-fade-up">
                   <CardContent className="p-8 text-center">
                     <div className="mb-6">
-                      <div className="w-32 h-32 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                        <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center">
-                          <div className="text-2xl">😴</div>
-                        </div>
+                      <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center">
+                        <BarChart3 className="h-10 w-10 text-primary" />
                       </div>
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No activity yet</h3>
-                    <p className="text-gray-600 text-sm">
+                    <h3 className="text-lg font-medium text-text-primary mb-2">No activity yet</h3>
+                    <p className="text-text-muted text-sm">
                       Your recent activities will appear here once you start using the platform.
                     </p>
                   </CardContent>
@@ -219,19 +238,19 @@ const Dashboard = () => {
               </div>
 
               {/* Quick Action Card */}
-              <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20">
+              <Card className="glass bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 animate-fade-up hover-lift">
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <Users className="h-6 w-6 text-white" />
+                    <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mx-auto mb-4 shadow-primary">
+                      <Mic className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Ready to connect?</h3>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Start building meaningful relationships with your target audience.
+                    <h3 className="font-semibold text-text-primary mb-2">Ready to start?</h3>
+                    <p className="text-sm text-text-muted mb-4">
+                      Create voice campaigns and connect with your target audience.
                     </p>
                     <Link to="/campaigns">
-                      <Button className="bg-primary hover:bg-primary/90 text-white w-full">
-                        Start Networking
+                      <Button className="bg-gradient-primary hover:shadow-primary hover-lift text-white w-full">
+                        Start Voice Outreach
                       </Button>
                     </Link>
                   </div>
