@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowLeft, Mail, Lock, User, Shield, CheckCircle, Building2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -14,6 +15,10 @@ const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const { toast } = useToast();
@@ -28,6 +33,37 @@ const Auth = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    // Validation for signup
+    if (!isLogin) {
+      if (!fullName.trim()) {
+        toast({
+          title: "Validation Error",
+          description: "Full name is required",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+      if (password !== confirmPassword) {
+        toast({
+          title: "Validation Error",
+          description: "Passwords do not match",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+      if (!acceptTerms) {
+        toast({
+          title: "Validation Error",
+          description: "Please accept the terms and conditions",
+          variant: "destructive",
+        });
+        setLoading(false);
+        return;
+      }
+    }
 
     try {
       const { error } = isLogin 
@@ -135,16 +171,36 @@ const Auth = () => {
 
             <CardContent className="space-y-6">
               <form onSubmit={handleSubmit} className="space-y-5">
+                {!isLogin && (
+                  <div className="space-y-2">
+                    <Label htmlFor="fullName" className="text-slate-700 dark:text-slate-300 font-medium">
+                      Full Name
+                    </Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <Input
+                        id="fullName"
+                        type="text"
+                        placeholder="John Doe"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        required
+                        className="pl-10 h-12 border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-primary bg-white dark:bg-slate-700"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-slate-700 dark:text-slate-300 font-medium">
-                    Work Email
+                    {isLogin ? 'Email' : 'Work Email'}
                   </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <Input
                       id="email"
                       type="email"
-                      placeholder="you@company.com"
+                      placeholder={isLogin ? "Enter your email" : "you@company.com"}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -170,6 +226,68 @@ const Auth = () => {
                     />
                   </div>
                 </div>
+
+                {!isLogin && (
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword" className="text-slate-700 dark:text-slate-300 font-medium">
+                      Confirm Password
+                    </Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <Input
+                        id="confirmPassword"
+                        type="password"
+                        placeholder="Confirm your password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                        className="pl-10 h-12 border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-primary bg-white dark:bg-slate-700"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {isLogin && (
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="rememberMe"
+                        checked={rememberMe}
+                        onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                      />
+                      <Label htmlFor="rememberMe" className="text-sm text-slate-600 dark:text-slate-400">
+                        Remember me
+                      </Label>
+                    </div>
+                    <Link 
+                      to="/forgot-password" 
+                      className="text-sm text-primary hover:text-primary/80 font-medium"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+                )}
+
+                {!isLogin && (
+                  <div className="flex items-start space-x-2">
+                    <Checkbox
+                      id="acceptTerms"
+                      checked={acceptTerms}
+                      onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
+                      required
+                    />
+                    <Label htmlFor="acceptTerms" className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                      I agree to the{' '}
+                      <Link to="/terms" className="text-primary hover:text-primary/80 font-medium">
+                        Terms of Service
+                      </Link>{' '}
+                      and{' '}
+                      <Link to="/privacy" className="text-primary hover:text-primary/80 font-medium">
+                        Privacy Policy
+                      </Link>
+                    </Label>
+                  </div>
+                )}
 
                 <Button 
                   type="submit" 
@@ -208,15 +326,6 @@ const Auth = () => {
                   {isLogin ? 'Create Account' : 'Sign In'}
                 </Button>
               </div>
-
-              {!isLogin && (
-                <p className="text-xs text-slate-500 dark:text-slate-400 text-center leading-relaxed">
-                  By creating an account, you agree to our{' '}
-                  <Link to="/terms" className="text-primary hover:underline">Terms of Service</Link>{' '}
-                  and{' '}
-                  <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>
-                </p>
-              )}
             </CardContent>
           </Card>
         </div>
