@@ -63,7 +63,7 @@ export const AudienceBuilder: React.FC<AudienceBuilderProps> = ({
   
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
-    platform: '',
+    platform: 'all',
     minFollowers: '',
     maxFollowers: '',
     minEngagement: '',
@@ -333,7 +333,7 @@ export const AudienceBuilder: React.FC<AudienceBuilderProps> = ({
                     <SelectValue placeholder="Platform" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Platforms</SelectItem>
+                    <SelectItem value="all">All Platforms</SelectItem>
                     <SelectItem value="instagram">Instagram</SelectItem>
                     <SelectItem value="linkedin">LinkedIn</SelectItem>
                     <SelectItem value="twitter">Twitter</SelectItem>
