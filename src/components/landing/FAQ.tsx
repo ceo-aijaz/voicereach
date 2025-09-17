@@ -5,6 +5,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { HelpCircle, Sparkles } from "lucide-react";
 
@@ -61,23 +63,23 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section className="section-margin bg-gradient-to-br from-primary-ultralight/10 to-surface/50 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    <section className="section-margin bg-gradient-to-br from-slate-50/30 to-white dark:from-slate-900/30 dark:to-slate-800 relative">
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
       <div className="container mx-auto section-padding relative z-10">
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16 animate-fade-up">
-          <Badge className="mb-8 glass-premium text-accent border-accent/20 px-6 py-3 text-lg hover-premium">
-            <HelpCircle className="h-5 w-5 mr-2" />
+        <div className="text-center max-w-4xl mx-auto mb-16 opacity-0 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
+          <Badge className="mb-8 bg-accent/10 text-accent border-accent/20 px-6 py-3 text-sm font-medium">
+            <HelpCircle className="h-4 w-4 mr-2" />
             Questions & Answers
           </Badge>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display mb-8 leading-tight">
-            <span className="text-text-primary">Frequently Asked</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
+            <span className="text-slate-900 dark:text-white">Frequently Asked</span>
             <br />
-            <span className="text-gradient-primary animate-gradient-x bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text">
+            <span className="text-primary">
               Questions
             </span>
           </h2>
-          <p className="text-lg sm:text-xl lg:text-2xl text-text-muted leading-relaxed">
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
             Everything you need to know about VoiceLead's voice automation platform
           </p>
         </div>
@@ -89,20 +91,20 @@ export function FAQ() {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="glass premium-border rounded-xl px-6 transition-all duration-300 hover:border-primary/20 hover-premium animate-fade-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="border border-slate-200 dark:border-slate-700 rounded-lg px-6 transition-all duration-300 hover:border-primary/30 hover:shadow-md bg-white dark:bg-slate-800 opacity-0 animate-fade-in"
+                style={{ animationDelay: `${(index + 2) * 0.05}s`, animationFillMode: 'forwards' }}
               >
                 <AccordionTrigger className="text-left hover:no-underline group py-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all hover-float">
-                      <Sparkles className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all">
+                      <Sparkles className="h-4 w-4 text-primary" />
                     </div>
-                    <span className="text-lg font-semibold text-text-primary group-hover:text-primary transition-all">
+                    <span className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
                       {faq.question}
                     </span>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="pt-2 pb-6 text-text-muted leading-relaxed text-base">
+                <AccordionContent className="pt-2 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -111,27 +113,27 @@ export function FAQ() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-16 animate-fade-up">
-          <div className="inline-block p-8 rounded-2xl glass-premium border border-primary/20 hover-tilt">
-            <h3 className="text-2xl font-bold mb-4 text-text-primary">
+        <div className="text-center mt-16 opacity-0 animate-fade-in" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
+          <Card className="inline-block p-8 border border-slate-200 dark:border-slate-700 shadow-lg">
+            <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">
               Still have questions?
             </h3>
-            <p className="text-text-muted mb-6 max-w-lg mx-auto">
+            <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-lg mx-auto">
               Our team is here to help you get started with VoiceLead's voice automation platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
-                <button className="bg-gradient-primary hover:shadow-premium text-white text-lg font-bold px-8 py-4 h-auto hover-premium group rounded-2xl border-0 shadow-xl uppercase tracking-wide hover-scale transition-all duration-300">
+                <Button className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 h-auto group rounded-lg transition-all duration-200 hover:scale-105">
                   Contact Support
-                </button>
+                </Button>
               </Link>
               <Link to="/auth">
-                <button className="bg-gradient-primary hover:shadow-premium text-white text-lg font-bold px-8 py-4 h-auto hover-premium group rounded-2xl border-0 shadow-xl uppercase tracking-wide hover-scale transition-all duration-300">
+                <Button className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 h-auto group rounded-lg transition-all duration-200 hover:scale-105">
                   Book a Demo
-                </button>
+                </Button>
               </Link>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </section>

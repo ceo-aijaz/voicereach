@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
 import { Check, Zap, Crown, Rocket, ArrowRight, Star, Sparkles } from 'lucide-react';
-import { GlowEffect, MagneticEffect } from '@/components/effects/PremiumEffects';
+
 
 const plans = [
   {
@@ -69,37 +69,37 @@ const plans = [
 
 export function Pricing() {
   return (
-    <section id="pricing" className="section-margin bg-gradient-to-br from-surface/50 to-primary-ultralight/30 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    <section id="pricing" className="section-margin bg-gradient-to-br from-slate-50/50 to-white dark:from-slate-900/50 dark:to-slate-800 relative">
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
       <div className="container mx-auto section-padding relative z-10">
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-20 animate-fade-up">
-          <Badge className="mb-8 glass-premium text-accent border-accent/20 px-6 py-3 text-lg hover-premium">
-            <Star className="h-5 w-5 mr-2 fill-accent" />
+        <div className="text-center max-w-4xl mx-auto mb-20 opacity-0 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
+          <Badge className="mb-8 bg-accent/10 text-accent border-accent/20 px-6 py-3 text-sm font-medium">
+            <Star className="h-4 w-4 mr-2" />
             Simple, Transparent Pricing
           </Badge>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display mb-8 leading-tight">
-            <span className="text-text-primary">Choose Your</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
+            <span className="text-slate-900 dark:text-white">Choose Your</span>
             <br />
-            <span className="text-gradient-primary animate-gradient-x bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text">
+            <span className="text-primary">
               Growth Plan
             </span>
           </h2>
-          <p className="text-lg sm:text-xl lg:text-2xl text-text-muted leading-relaxed mb-8">
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
             Start with our <span className="text-accent font-semibold">14-day free trial</span>. No credit card required. 
             Cancel anytime. <span className="text-primary font-semibold">Upgrade as you scale</span>.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-text-muted">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-400">
             <div className="flex items-center">
-              <Check className="h-4 w-4 text-accent mr-2" />
+              <Check className="h-4 w-4 text-green-600 mr-2" />
               14-day free trial
             </div>
             <div className="flex items-center">
-              <Check className="h-4 w-4 text-accent mr-2" />
+              <Check className="h-4 w-4 text-green-600 mr-2" />
               No setup fees
             </div>
             <div className="flex items-center">
-              <Check className="h-4 w-4 text-accent mr-2" />
+              <Check className="h-4 w-4 text-green-600 mr-2" />
               Cancel anytime
             </div>
           </div>
@@ -110,15 +110,16 @@ export function Pricing() {
           {plans.map((plan, index) => (
             <Card 
               key={index}
-              className={`relative group premium-border transition-all duration-300 ease-out h-full ${
+              className={`relative group transition-all duration-300 h-full opacity-0 animate-fade-in ${
                 plan.popular 
-                  ? 'scale-105 shadow-premium border-primary/50 glass-premium transform hover:scale-[1.02] hover-premium' 
-                  : 'hover:border-primary/20 glass border-border/50 hover:scale-[1.01] hover-float'
+                  ? 'scale-105 shadow-xl border-primary/50 bg-white dark:bg-slate-800 hover:scale-[1.02]' 
+                  : 'hover:border-primary/30 border-slate-200 dark:border-slate-700 hover:scale-[1.01] hover:shadow-lg'
               }`}
+              style={{ animationDelay: `${(index + 2) * 0.1}s`, animationFillMode: 'forwards' }}
             >
                   {plan.popular && (
-                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                      <Badge className="bg-gradient-primary text-white border-0 px-6 py-2 shadow-lg animate-pulse-glow">
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                      <Badge className="bg-primary text-white border-0 px-4 py-2 shadow-lg">
                         <Sparkles className="h-4 w-4 mr-1" />
                         Most Popular
                       </Badge>
@@ -127,36 +128,35 @@ export function Pricing() {
 
                   <CardHeader className="text-center pb-6 flex-shrink-0">
                     <div className="flex items-center justify-center mb-6">
-                      <div className={`w-18 h-18 rounded-2xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all animate-pulse-glow`}>
-                        <plan.icon className="h-9 w-9 text-white" />
+                      <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${plan.gradient} flex items-center justify-center shadow-md group-hover:shadow-lg transition-all`}>
+                        <plan.icon className="h-8 w-8 text-white" />
                       </div>
                     </div>
                     
-                    <h3 className="text-2xl lg:text-3xl font-bold font-display text-text-primary mb-3">
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
                       {plan.name}
                     </h3>
                     
-                    <p className="text-text-muted mb-6 text-base lg:text-lg">
+                    <p className="text-slate-600 dark:text-slate-400 mb-6">
                       {plan.description}
                     </p>
                     
                     <div className="mb-6">
-                      <span className="text-5xl lg:text-6xl font-bold text-text-primary">
+                      <span className="text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white">
                         ${plan.price}
                       </span>
-                      <span className="text-text-muted ml-2 text-lg">/month</span>
+                      <span className="text-slate-500 ml-2">/month</span>
                     </div>
                   </CardHeader>
 
                   <CardContent className="space-y-6 flex-grow flex flex-col">
                     <Link to="/auth">
                       <Button 
-                        className={`w-full transition-all group ${
+                        className={`w-full transition-all group h-12 ${
                           plan.popular 
-                            ? 'bg-gradient-primary hover:shadow-premium text-white text-lg font-bold px-8 py-4 h-auto hover-premium rounded-2xl border-0 shadow-xl uppercase tracking-wide hover-scale duration-300' 
-                            : 'bg-gradient-primary hover:shadow-premium text-white text-lg font-bold px-8 py-4 h-auto hover-premium rounded-2xl border-0 shadow-xl uppercase tracking-wide hover-scale duration-300'
+                            ? 'bg-primary hover:bg-primary/90 text-white font-semibold' 
+                            : 'bg-primary hover:bg-primary/90 text-white font-semibold'
                         }`}
-                        size="lg"
                       >
                         Start Free Trial
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -165,11 +165,11 @@ export function Pricing() {
                 
                     <div className="space-y-4 pt-6 flex-grow">
                       {plan.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-start space-x-3 animate-scale-in" style={{ animationDelay: `${featureIndex * 0.05}s` }}>
-                          <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center mt-0.5 flex-shrink-0 animate-pulse-glow">
-                            <Check className="h-4 w-4 text-accent" />
+                        <div key={featureIndex} className="flex items-start space-x-3">
+                          <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mt-0.5 flex-shrink-0">
+                            <Check className="h-3 w-3 text-green-600" />
                           </div>
-                          <span className="text-text-secondary leading-relaxed text-base">
+                          <span className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                             {feature}
                           </span>
                         </div>
@@ -181,23 +181,21 @@ export function Pricing() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center animate-fade-up">
-          <GlowEffect>
-            <Card className="inline-block p-8 glass-premium border-primary/20 hover-tilt">
-              <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-4">Need a Custom Solution?</h3>
-                <p className="text-text-muted mb-6 max-w-lg">
-                  Enterprise plans with custom voice training, dedicated support, and white-label options available.
-                </p>
-                <Link to="/contact">
-                  <Button className="bg-gradient-primary hover:shadow-premium text-white text-lg font-bold px-8 py-4 h-auto hover-premium group rounded-2xl border-0 shadow-xl uppercase tracking-wide hover-scale transition-all duration-300">
-                    Contact Sales Team
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-              </div>
-            </Card>
-          </GlowEffect>
+        <div className="text-center opacity-0 animate-fade-in" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
+          <Card className="inline-block p-8 border border-slate-200 dark:border-slate-700 shadow-lg">
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Need a Custom Solution?</h3>
+              <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-lg">
+                Enterprise plans with custom voice training, dedicated support, and white-label options available.
+              </p>
+              <Link to="/contact">
+                <Button className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 h-auto group rounded-lg transition-all duration-200 hover:scale-105">
+                  Contact Sales Team
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </div>
+          </Card>
         </div>
       </div>
     </section>
