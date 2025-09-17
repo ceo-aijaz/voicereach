@@ -1,21 +1,28 @@
 import React from 'react';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/dashboard/Sidebar';
+import { Sidebar } from '@/components/dashboard/Sidebar';
 import { Pricing } from '@/components/landing/Pricing';
 
 const Upgrade = () => {
   return (
-    <SidebarProvider>
-      <div className="min-h-screen bg-background flex w-full">
-        <AppSidebar />
-        
-        <main className="flex-1">
-          <div className="p-8">
-            <Pricing />
+    <div className="min-h-screen bg-background">
+      <Sidebar />
+      
+      <div className="lg:ml-64">
+        <div className="p-8">
+          {/* Header */}
+          <div className="mb-8 text-center animate-fade-up">
+            <h1 className="text-4xl font-bold font-display text-text-primary mb-4">
+              Upgrade Your Plan
+            </h1>
+            <p className="text-xl text-text-muted max-w-2xl mx-auto">
+              Unlock unlimited voice DMs, advanced AI features, and premium support
+            </p>
           </div>
-        </main>
+
+          <Pricing />
+        </div>
       </div>
-    </SidebarProvider>
+    </div>
   );
 };
 

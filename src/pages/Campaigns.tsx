@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { Sidebar } from '@/components/dashboard/Sidebar';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/dashboard/Sidebar';
 import { 
   Search,
   Plus,
@@ -19,9 +19,20 @@ const Campaigns = () => {
   const [activeOnly, setActiveOnly] = useState(false);
   
   // Set this to true to show campaigns, false to show empty state
-  const [hasCampaigns] = useState(false);
+  const [hasCampaigns] = useState(true);
   
-  const campaigns: any[] = [];
+  const campaigns = [
+    {
+      id: 1,
+      name: 'nas',
+      allLeads: 0,
+      listLeads: 1,
+      acceptanceRate: 0,
+      responseRate: 0,
+      status: 'active',
+      lastUpdated: 'Sep 17 2025'
+    }
+  ];
 
   const EmptyState = () => (
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
@@ -133,11 +144,11 @@ const Campaigns = () => {
   );
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen bg-background flex w-full">
-        <AppSidebar />
-        
-        <main className="flex-1 p-8">
+    <div className="min-h-screen bg-background">
+      <Sidebar />
+      
+      <div className="lg:ml-64">
+        <div className="p-8">
           {/* Header with schedule notice */}
           <div className="mb-6">
             <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-4">
@@ -150,9 +161,9 @@ const Campaigns = () => {
 
           {/* Show empty state or campaigns table based on hasCampaigns */}
           {!hasCampaigns ? <EmptyState /> : <CampaignsTable />}
-        </main>
+        </div>
       </div>
-    </SidebarProvider>
+    </div>
   );
 };
 

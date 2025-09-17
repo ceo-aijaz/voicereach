@@ -1,4 +1,3 @@
-import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,7 +18,6 @@ import Dashboard from "./pages/Dashboard";
 import Leads from "./pages/Leads";
 import FacebookConnect from "./pages/FacebookConnect";
 import Campaigns from "./pages/Campaigns";
-import CampaignBuilder from "./pages/CampaignBuilder";
 import VoiceCloning from "./pages/VoiceCloning";
 import Settings from "./pages/Settings";
 import Upgrade from "./pages/Upgrade";
@@ -75,7 +73,6 @@ const App = () => (
               <Route path="/leads" element={<ProtectedRoute><Leads /></ProtectedRoute>} />
               <Route path="/facebook" element={<ProtectedRoute><FacebookConnect /></ProtectedRoute>} />
               <Route path="/campaigns" element={<ProtectedRoute><Campaigns /></ProtectedRoute>} />
-              <Route path="/campaign-builder" element={<ProtectedRoute><CampaignBuilder /></ProtectedRoute>} />
               <Route path="/voice" element={<ProtectedRoute><VoiceCloning /></ProtectedRoute>} />
               <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
               <Route path="/upgrade" element={<ProtectedRoute><Upgrade /></ProtectedRoute>} />
