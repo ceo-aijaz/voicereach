@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Sidebar } from '@/components/dashboard/Sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/dashboard/Sidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -95,8 +96,15 @@ const VoiceCloning = () => {
 
 
   return (
-    <div className="min-h-screen bg-background">
-      <Sidebar />
+    <SidebarProvider>
+      <div className="min-h-screen bg-background flex w-full">
+        <AppSidebar />
+        <main className="flex-1 p-8">
+          {/* Content here */}
+        </main>
+      </div>
+    </SidebarProvider>
+  );
       
       <div className="lg:ml-64">
         <div className="p-8">

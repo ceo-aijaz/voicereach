@@ -1,172 +1,142 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { 
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarTrigger,
+  SidebarProvider,
+  useSidebar,
+} from '@/components/ui/sidebar';
 import { useAuth } from '@/contexts/AuthContext';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { 
   LayoutDashboard, 
   Users, 
-  Facebook, 
   MessageSquare, 
-  Mic2, 
+  Mail, 
+  Star, 
   Settings, 
   Crown,
-  TrendingUp,
   LogOut,
-  Menu,
-  X,
-  Sparkles
+  Sparkles,
 } from 'lucide-react';
-import { useState } from 'react';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Leads', href: '/leads', icon: Users },
-  { name: 'Facebook Accounts', href: '/facebook', icon: Facebook },
   { name: 'Campaigns', href: '/campaigns', icon: MessageSquare },
-  { name: 'Voice Cloning', href: '/voice', icon: Mic2 },
-  { name: 'Analytics', href: '/analytics', icon: TrendingUp },
+  { name: 'Inbox', href: '/inbox', icon: Mail },
+  { name: 'Leads', href: '/leads', icon: Users },
+  { name: 'Team', href: '/team', icon: Users },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
-interface SidebarProps {
-  className?: string;
-}
-
-export const Sidebar = ({ className }: SidebarProps) => {
+export const AppSidebar = () => {
   const location = useLocation();
   const { signOut, user } = useAuth();
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const isMobile = useIsMobile();
-
+  const { open, setOpen } = useSidebar();
+  
   const handleSignOut = () => {
     signOut();
   };
 
-  const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-sidebar/95 backdrop-blur-xl border-r border-sidebar-border/50 glass">
-      {/* Logo */}
-      <div className="flex items-center h-16 px-6 border-b border-sidebar-border/30">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gradient-primary rounded-xl flex items-center justify-center shadow-glow hover-scale">
-            <Mic2 className="h-5 w-5 text-white" />
-          </div>
-          <span className="text-xl font-bold font-display text-sidebar-foreground">VoiceLead</span>
-        </div>
-      </div>
-
-      {/* User Info */}
-      <div className="p-6 border-b border-sidebar-border/30">
-        <div className="flex items-center space-x-3 mb-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-primary via-primary-glow to-accent rounded-xl flex items-center justify-center shadow-glow ring-2 ring-primary/20 hover-scale">
-            <span className="text-white font-bold text-lg">
-              {user?.email?.charAt(0).toUpperCase()}
-            </span>
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-sidebar-foreground truncate">
-              {user?.email}
-            </p>
-            <div className="flex items-center gap-2 mt-1">
-              <Badge className="text-xs bg-warning/20 text-warning border-warning/30 px-2 py-0.5">
-                Free Plan
-              </Badge>
-            </div>
-          </div>
-        </div>
-        <Link to="/upgrade">
-          <Button size="sm" className="w-full bg-gradient-primary hover:shadow-premium text-white font-semibold hover-lift transition-all duration-300 rounded-xl">
-            <Crown className="h-4 w-4 mr-2" />
-            Upgrade Plan
-            <Sparkles className="h-4 w-4 ml-2" />
-          </Button>
-        </Link>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-2">
-        {navigation.map((item) => {
-          const isActive = location.pathname === item.href;
-          return (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                'flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 hover-lift group relative overflow-hidden',
-                isActive
-                  ? 'bg-gradient-primary text-white shadow-glow'
-                  : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
-              )}
-              onClick={() => setIsMobileOpen(false)}
-            >
-              <item.icon className={cn(
-                "h-5 w-5 mr-3 transition-all duration-300",
-                isActive ? "text-white scale-110" : "group-hover:scale-110"
-              )} />
-              <span className="relative z-10">{item.name}</span>
-              {item.name === 'Campaigns' && (
-                <Badge className="ml-auto bg-accent/20 text-accent text-xs border-accent/30 hover-scale">3</Badge>
-              )}
-              {!isActive && (
-                <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-              )}
-            </Link>
-          );
-        })}
-      </nav>
-
-      {/* Sign Out */}
-      <div className="p-4 border-t border-sidebar-border/30">
-        <Button
-          variant="ghost"
-          onClick={handleSignOut}
-          className="w-full justify-start text-sidebar-foreground/70 hover:text-error hover:bg-error/10 rounded-xl transition-all duration-300 hover-lift group"
-        >
-          <LogOut className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
-          Sign Out
-        </Button>
-      </div>
-    </div>
-  );
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <>
-      {/* Mobile Menu Button */}
-      <Button
-        variant="ghost"
-        size="sm"
-        className={cn(
-          "lg:hidden fixed top-4 left-4 z-50 glass border border-border/50 shadow-glow hover-lift transition-all duration-300",
-          isMobileOpen && "rotate-90"
-        )}
-        onClick={() => setIsMobileOpen(!isMobileOpen)}
-      >
-        {isMobileOpen ? (
-          <X className="h-5 w-5 text-error" />
-        ) : (
-          <Menu className="h-5 w-5 text-primary" />
-        )}
-      </Button>
+    <Sidebar className={cn("border-r", open ? "w-60" : "w-14")} collapsible="icon">
+      <SidebarContent className="bg-background">
+        {/* Header with collapsible logo */}
+        <div className={cn("flex items-center h-16 px-4 border-b", !open ? "justify-center" : "justify-between")}>
+          {open && (
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <MessageSquare className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-xl font-bold">Dripify</span>
+            </div>
+          )}
+          <SidebarTrigger />
+        </div>
 
-      {/* Desktop Sidebar */}
-      <div className={cn("hidden lg:flex w-64 h-screen fixed left-0 top-0 z-40", className)}>
-        <SidebarContent />
-      </div>
+        {/* Navigation */}
+        <SidebarGroup className="flex-1 p-2">
+          <SidebarGroupContent>
+            <SidebarMenu className="space-y-1">
+              {navigation.map((item) => (
+                <SidebarMenuItem key={item.name}>
+                  <SidebarMenuButton asChild className={cn(
+                    "w-full justify-start rounded-lg transition-colors hover:bg-accent/50",
+                    isActive(item.href) ? "bg-primary text-primary-foreground hover:bg-primary/90" : "text-muted-foreground hover:text-foreground"
+                  )}>
+                    <Link to={item.href} className="flex items-center">
+                      <item.icon className={cn("h-5 w-5", !open ? "" : "mr-3")} />
+                      {open && <span>{item.name}</span>}
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
 
-      {/* Mobile Sidebar */}
-      {isMobileOpen && (
-        <>
-          <div 
-            className="lg:hidden fixed inset-0 z-40 bg-background/60 backdrop-blur-md animate-fade-in" 
-            onClick={() => setIsMobileOpen(false)} 
-          />
-          <div className="lg:hidden fixed left-0 top-0 z-50 w-72 h-screen animate-slide-in-left">
-            <SidebarContent />
-          </div>
-        </>
-      )}
-    </>
+        {/* User section and upgrade */}
+        <div className="border-t">
+          {open && (
+            <div className="p-4">
+              <div className="text-sm text-muted-foreground mb-2">Finish set-up</div>
+              <div className="text-xs text-muted-foreground mb-4">3/5 completed</div>
+              
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                  <span className="text-white font-semibold text-sm">
+                    {user?.email?.charAt(0).toUpperCase()}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">
+                    {user?.email?.split('@')[0]} — The Lea...
+                  </p>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <div className="text-xs text-muted-foreground mb-2">Free trial</div>
+                <div className="text-sm font-medium mb-2">Expires Sep 24, 2025</div>
+                <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent flex items-center justify-center text-xs font-bold">
+                  7d
+                </div>
+              </div>
+              
+              <Button className="w-full bg-primary hover:bg-primary/90 rounded-lg">
+                Upgrade
+              </Button>
+
+              <div className="mt-4 pt-4 border-t">
+                <div className="text-xs text-muted-foreground">What's new</div>
+              </div>
+            </div>
+          )}
+          
+          {!open && (
+            <div className="p-2 flex flex-col items-center space-y-2">
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-white font-semibold text-xs">
+                  {user?.email?.charAt(0).toUpperCase()}
+                </span>
+              </div>
+              <Button size="sm" className="w-8 h-8 p-0 bg-primary hover:bg-primary/90">
+                <Crown className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </div>
+      </SidebarContent>
+    </Sidebar>
   );
 };
