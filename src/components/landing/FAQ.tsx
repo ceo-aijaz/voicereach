@@ -61,23 +61,18 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section className="section-margin bg-gradient-to-br from-primary-ultralight/10 to-surface/50 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      <div className="container mx-auto section-padding relative z-10">
+    <section className="py-20 bg-gray-50 relative">
+      <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16 animate-fade-up">
-          <Badge className="mb-8 glass-premium text-accent border-accent/20 px-6 py-3 text-lg hover-premium">
-            <HelpCircle className="h-5 w-5 mr-2" />
+        <div className="text-center max-w-4xl mx-auto mb-16">
+          <Badge className="mb-6 bg-blue-50 text-blue-700 border-blue-200 px-4 py-2 text-sm">
+            <HelpCircle className="h-4 w-4 mr-2" />
             Questions & Answers
           </Badge>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display mb-8 leading-tight">
-            <span className="text-text-primary">Frequently Asked</span>
-            <br />
-            <span className="text-gradient-primary animate-gradient-x bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text">
-              Questions
-            </span>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight text-gray-900">
+            Frequently Asked Questions
           </h2>
-          <p className="text-lg sm:text-xl lg:text-2xl text-text-muted leading-relaxed">
+          <p className="text-xl text-gray-600 leading-relaxed">
             Everything you need to know about VoiceLead's voice automation platform
           </p>
         </div>
@@ -89,20 +84,19 @@ export function FAQ() {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="glass premium-border rounded-xl px-6 transition-all duration-300 hover:border-primary/20 hover-premium animate-fade-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="bg-white border border-gray-200 rounded-lg px-6 transition-all duration-300 hover:border-gray-300 hover:shadow-md"
               >
                 <AccordionTrigger className="text-left hover:no-underline group py-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all hover-float">
-                      <Sparkles className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+                    <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center group-hover:bg-blue-100 transition-all">
+                      <Sparkles className="h-4 w-4 text-blue-600" />
                     </div>
-                    <span className="text-lg font-semibold text-text-primary group-hover:text-primary transition-all">
+                    <span className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-all">
                       {faq.question}
                     </span>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="pt-2 pb-6 text-text-muted leading-relaxed text-base">
+                <AccordionContent className="pt-2 pb-6 text-gray-600 leading-relaxed text-base">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
