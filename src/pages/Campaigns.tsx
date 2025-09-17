@@ -19,20 +19,9 @@ const Campaigns = () => {
   const [activeOnly, setActiveOnly] = useState(false);
   
   // Set this to true to show campaigns, false to show empty state
-  const [hasCampaigns] = useState(true);
+  const [hasCampaigns] = useState(false);
   
-  const campaigns = [
-    {
-      id: 1,
-      name: 'nas',
-      allLeads: 0,
-      listLeads: 1,
-      acceptanceRate: 0,
-      responseRate: 0,
-      status: 'active',
-      lastUpdated: 'Sep 17 2025'
-    }
-  ];
+  const campaigns = [];
 
   const EmptyState = () => (
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
