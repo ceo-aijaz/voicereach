@@ -226,15 +226,18 @@ const Dashboard = () => {
             ) : (
               statsDisplay.map((stat, index) => (
                 <MagneticEffect key={index}>
-                  <MobileCard className="bg-white border border-gray-100 hover:border-primary/20 transition-all hover-lift group cursor-pointer shadow-sm">
+                  <MobileCard className="bg-white border border-border hover:border-primary/30 transition-all duration-300 hover-lift group cursor-pointer shadow-sm hover:shadow-md">
                     <div className="flex items-center justify-between mb-4">
-                      <div className={`p-2 rounded-lg bg-gray-50 ${stat.color}`}>
+                      <div className={`p-3 rounded-xl bg-primary/5 ${stat.color} group-hover:scale-110 transition-transform duration-300`}>
                         <stat.icon className="h-5 w-5" />
                       </div>
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <ArrowUpRight className="h-4 w-4 text-primary" />
+                      </div>
                     </div>
-                    <div className="text-2xl font-bold text-text-primary mb-1">{stat.value}</div>
+                    <div className="text-2xl font-bold text-text-primary mb-1 group-hover:text-primary transition-colors duration-300">{stat.value}</div>
                     <div className="text-text-muted text-sm font-medium mb-2">{stat.title}</div>
-                    <div className="text-xs text-accent font-medium">{stat.change}</div>
+                    <div className="text-xs text-primary font-semibold bg-primary/10 px-2 py-1 rounded-full inline-block">{stat.change}</div>
                   </MobileCard>
                 </MagneticEffect>
               ))

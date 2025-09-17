@@ -153,7 +153,7 @@ const Auth = () => {
 
         {/* Right Side - Professional Auth Form */}
         <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-          <Card className="w-full max-w-md border border-slate-200 dark:border-slate-700 shadow-lg bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
+          <Card className="w-full max-w-md border border-border shadow-xl bg-white backdrop-blur-sm hover:shadow-2xl transition-all duration-500">
             <CardHeader className="text-center pb-6">
               <div className="mx-auto w-12 h-12 bg-primary rounded-xl flex items-center justify-center mb-4">
                 <User className="h-6 w-6 text-white" />
@@ -291,7 +291,7 @@ const Auth = () => {
 
                 <Button 
                   type="submit" 
-                  className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold transition-all duration-200"
+                  className="w-full h-12 bg-gradient-primary hover:shadow-glow text-white font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                   disabled={loading}
                 >
                   {loading ? (
