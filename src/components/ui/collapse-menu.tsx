@@ -57,6 +57,15 @@ export const CollapseMenuIcon: React.FC<CollapseMenuIconProps> = ({ className = 
         strokeLinecap="round" 
         strokeLinejoin="round"
       />
+      <path 
+        fillRule="evenodd" 
+        clipRule="evenodd" 
+        d="M19 9H16C14.895 9 14 8.105 14 7V5C14 3.895 14.895 3 16 3H19C20.105 3 21 3.895 21 5V7C21 8.105 20.105 9 19 9Z" 
+        stroke="currentColor" 
+        strokeWidth="1.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
     </svg>
   );
 };
