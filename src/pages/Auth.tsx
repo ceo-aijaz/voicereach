@@ -7,18 +7,13 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowLeft, Mail, Lock, User, Shield, CheckCircle, Building2 } from 'lucide-react';
+import { ArrowLeft, Mail, Lock, User, Mic2, TrendingUp, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-  const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const { toast } = useToast();
@@ -33,37 +28,6 @@ const Auth = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    // Validation for signup
-    if (!isLogin) {
-      if (!fullName.trim()) {
-        toast({
-          title: "Validation Error",
-          description: "Full name is required",
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-      if (password !== confirmPassword) {
-        toast({
-          title: "Validation Error",
-          description: "Passwords do not match",
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-      if (!acceptTerms) {
-        toast({
-          title: "Validation Error",
-          description: "Please accept the terms and conditions",
-          variant: "destructive",
-        });
-        setLoading(false);
-        return;
-      }
-    }
 
     try {
       const { error } = isLogin 
@@ -91,208 +55,119 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 relative">
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"></div>
-      <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-[0.02]"></div>
+    <div className="min-h-screen bg-gradient-hero relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-background/95"></div>
+      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float-delayed"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-primary opacity-[0.02] rounded-full blur-3xl"></div>
       
       <div className="relative z-10 min-h-screen flex">
-        {/* Left Side - Enterprise Branding */}
-        <div className="hidden lg:flex lg:w-1/2 items-center justify-center p-12 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-          <div className="max-w-lg">
-            <Link to="/" className="inline-flex items-center mb-12 text-slate-600 hover:text-primary transition-colors group">
-              <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+        {/* Left Side - Branding */}
+        <div className="hidden lg:flex lg:w-1/2 items-center justify-center p-12">
+          <div className="max-w-lg text-center animate-fade-up">
+            <Link to="/" className="inline-flex items-center mb-8 text-primary hover-scale">
+              <ArrowLeft className="h-5 w-5 mr-2" />
               Back to Home
             </Link>
             
-            <div className="mb-12">
-              <div className="flex items-center mb-8">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mr-4">
-                  <Building2 className="h-6 w-6 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-slate-900 dark:text-white">VoiceLead</h1>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm">Enterprise Voice Automation</p>
-                </div>
-              </div>
-              
-              <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
-                Transform Your
-                <span className="block text-primary">Outreach Strategy</span>
-              </h2>
-              
-              <p className="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-                Join 300+ agencies using AI-powered voice automation to achieve 
-                <span className="text-primary font-semibold"> 300%+ higher response rates</span> on Facebook.
+            <div className="mb-8">
+              <Badge className="bg-primary-ultralight text-primary border-primary/20 mb-6 px-4 py-2 animate-pulse-glow">
+                ⭐ Rated 4.9/5 by 300+ agencies
+              </Badge>
+              <h1 className="text-5xl font-bold font-display mb-6 leading-tight">
+                Welcome to
+                <span className="text-gradient-primary block animate-gradient-x bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text">
+                  VoiceLead
+                </span>
+              </h1>
+              <p className="text-xl text-text-muted leading-relaxed">
+                Join the AI voice revolution. Send hyper-personalized voice messages that convert 
+                <span className="text-accent font-semibold"> 300%+ better</span> than text DMs.
               </p>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="space-y-6">
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mr-3">
-                  <CheckCircle className="h-4 w-4 text-green-600" />
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6 mt-8">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <Mic2 className="h-5 w-5 text-primary mr-1" />
+                  <span className="text-2xl font-bold text-text-primary">22.5K+</span>
                 </div>
-                <span className="text-slate-700 dark:text-slate-300">Enterprise-grade security</span>
+                <p className="text-text-muted text-sm">Voice DMs</p>
               </div>
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mr-3">
-                  <Shield className="h-4 w-4 text-blue-600" />
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <TrendingUp className="h-5 w-5 text-accent mr-1" />
+                  <span className="text-2xl font-bold text-text-primary">300%+</span>
                 </div>
-                <span className="text-slate-700 dark:text-slate-300">99.9% platform uptime</span>
+                <p className="text-text-muted text-sm">Response Rate</p>
               </div>
-              <div className="flex items-center">
-                <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mr-3">
-                  <Building2 className="h-4 w-4 text-purple-600" />
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <Users className="h-5 w-5 text-warning mr-1" />
+                  <span className="text-2xl font-bold text-text-primary">300+</span>
                 </div>
-                <span className="text-slate-700 dark:text-slate-300">Trusted by Fortune 500</span>
+                <p className="text-text-muted text-sm">Beta Users</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Side - Professional Auth Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-          <Card className="w-full max-w-md border border-slate-200 dark:border-slate-700 shadow-lg bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
-            <CardHeader className="text-center pb-6">
-              <div className="mx-auto w-12 h-12 bg-primary rounded-xl flex items-center justify-center mb-4">
-                <User className="h-6 w-6 text-white" />
-              </div>
-              <CardTitle className="text-2xl font-semibold text-slate-900 dark:text-white">
-                {isLogin ? 'Welcome back' : 'Create your account'}
+        {/* Right Side - Auth Form */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8">
+          <Card className="w-full max-w-md glass border-primary/20 shadow-primary/10 animate-scale-in hover-tilt">
+            <CardHeader className="text-center pb-4">
+              <CardTitle className="text-2xl font-bold font-display">
+                {isLogin ? 'Welcome Back' : 'Get Started'}
               </CardTitle>
-              <p className="text-slate-600 dark:text-slate-400 mt-2">
+              <p className="text-text-muted">
                 {isLogin 
-                  ? 'Sign in to continue to VoiceLead' 
-                  : 'Get started with VoiceLead today'
+                  ? 'Sign in to your VoiceLead account' 
+                  : 'Create your VoiceLead account'
                 }
               </p>
             </CardHeader>
 
             <CardContent className="space-y-6">
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {!isLogin && (
-                  <div className="space-y-2">
-                    <Label htmlFor="fullName" className="text-slate-700 dark:text-slate-300 font-medium">
-                      Full Name
-                    </Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                      <Input
-                        id="fullName"
-                        type="text"
-                        placeholder="John Doe"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        required
-                        className="pl-10 h-12 border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-primary bg-white dark:bg-slate-700"
-                      />
-                    </div>
-                  </div>
-                )}
-
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-slate-700 dark:text-slate-300 font-medium">
-                    {isLogin ? 'Email' : 'Work Email'}
+                  <Label htmlFor="email" className="flex items-center text-text-primary">
+                    <Mail className="h-4 w-4 mr-2" />
+                    Email
                   </Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder={isLogin ? "Enter your email" : "you@company.com"}
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      className="pl-10 h-12 border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-primary bg-white dark:bg-slate-700"
-                    />
-                  </div>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="you@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="bg-surface border-border focus:border-primary"
+                  />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-slate-700 dark:text-slate-300 font-medium">
+                  <Label htmlFor="password" className="flex items-center text-text-primary">
+                    <Lock className="h-4 w-4 mr-2" />
                     Password
                   </Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder={isLogin ? "Enter your password" : "Create a secure password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                      className="pl-10 h-12 border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-primary bg-white dark:bg-slate-700"
-                    />
-                  </div>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="bg-surface border-border focus:border-primary"
+                  />
                 </div>
-
-                {!isLogin && (
-                  <div className="space-y-2">
-                    <Label htmlFor="confirmPassword" className="text-slate-700 dark:text-slate-300 font-medium">
-                      Confirm Password
-                    </Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
-                      <Input
-                        id="confirmPassword"
-                        type="password"
-                        placeholder="Confirm your password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                        className="pl-10 h-12 border-slate-300 dark:border-slate-600 focus:border-primary focus:ring-primary bg-white dark:bg-slate-700"
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {isLogin && (
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <Checkbox
-                        id="rememberMe"
-                        checked={rememberMe}
-                        onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                      />
-                      <Label htmlFor="rememberMe" className="text-sm text-slate-600 dark:text-slate-400">
-                        Remember me
-                      </Label>
-                    </div>
-                    <Link 
-                      to="/forgot-password" 
-                      className="text-sm text-primary hover:text-primary/80 font-medium"
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
-                )}
-
-                {!isLogin && (
-                  <div className="flex items-start space-x-2">
-                    <Checkbox
-                      id="acceptTerms"
-                      checked={acceptTerms}
-                      onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
-                      required
-                    />
-                    <Label htmlFor="acceptTerms" className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                      I agree to the{' '}
-                      <Link to="/terms" className="text-primary hover:text-primary/80 font-medium">
-                        Terms of Service
-                      </Link>{' '}
-                      and{' '}
-                      <Link to="/privacy" className="text-primary hover:text-primary/80 font-medium">
-                        Privacy Policy
-                      </Link>
-                    </Label>
-                  </div>
-                )}
 
                 <Button 
                   type="submit" 
-                  className="w-full h-12 bg-primary hover:bg-primary/90 text-white font-semibold transition-all duration-200"
+                  className="w-full bg-gradient-primary hover:shadow-primary transition-all hover-lift hover-shine group"
                   disabled={loading}
+                  size="lg"
                 >
                   {loading ? (
                     <div className="flex items-center">
@@ -301,6 +176,7 @@ const Auth = () => {
                     </div>
                   ) : (
                     <>
+                      <User className="h-4 w-4 mr-2" />
                       {isLogin ? 'Sign In' : 'Create Account'}
                     </>
                   )}
@@ -308,20 +184,20 @@ const Auth = () => {
               </form>
 
               <div className="relative">
-                <Separator className="bg-slate-200 dark:bg-slate-600" />
+                <Separator className="my-4" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="bg-white dark:bg-slate-800 px-3 text-slate-500 text-sm">or</span>
+                  <span className="bg-card px-2 text-text-muted text-sm">or</span>
                 </div>
               </div>
 
-              <div className="text-center">
-                <p className="text-slate-600 dark:text-slate-400 mb-3">
+              <div className="text-center space-y-2">
+                <p className="text-text-muted">
                   {isLogin ? "Don't have an account?" : "Already have an account?"}
                 </p>
                 <Button
                   variant="ghost"
                   onClick={() => setIsLogin(!isLogin)}
-                  className="text-primary hover:bg-primary/10 font-medium"
+                  className="text-primary hover:bg-primary/10"
                 >
                   {isLogin ? 'Create Account' : 'Sign In'}
                 </Button>
