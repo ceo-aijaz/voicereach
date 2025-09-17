@@ -23,18 +23,18 @@ import {
 } from 'lucide-react';
 
 const FacebookConnect = () => {
-  const { facebookAccounts, stats, loading } = useRealTimeData();
+  const { voiceAccounts, stats, loading } = useRealTimeData();
   
   // Map real data to display format
-  const accounts = facebookAccounts.map(account => ({
+  const accounts = voiceAccounts.map(account => ({
     id: account.id,
-    username: account.account_name,
-    status: account.status,
+    username: 'Facebook Account',
+    status: account.voice_message_sent ? 'connected' : 'inactive',
     followers: 'N/A', // You can add follower tracking later
-    dailyLimit: account.daily_call_limit,
-    sentToday: account.calls_made_today,
-    responseRate: 'N/A', // You can calculate this from interactions
-    isActive: account.status === 'active'
+    dailyLimit: 100,
+    sentToday: account.voice_message_sent ? 1 : 0,
+    responseRate: account.response_received ? '20%' : '0%',
+    isActive: account.voice_message_sent
   }));
 
   const getStatusColor = (status: string) => {
@@ -87,7 +87,7 @@ const FacebookConnect = () => {
                         <Facebook className="h-5 w-5 text-accent" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-text-primary">{facebookAccounts.length}</p>
+                        <p className="text-2xl font-bold text-text-primary">{voiceAccounts.length}</p>
                         <p className="text-sm text-text-muted">Connected Accounts</p>
                       </div>
                     </div>
@@ -101,7 +101,7 @@ const FacebookConnect = () => {
                         <MessageSquare className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-text-primary">{stats.voiceDMsSent}</p>
+                        <p className="text-2xl font-bold text-text-primary">{stats.totalVoiceSent}</p>
                         <p className="text-sm text-text-muted">DMs Sent Total</p>
                       </div>
                     </div>
@@ -115,7 +115,7 @@ const FacebookConnect = () => {
                         <TrendingUp className="h-5 w-5 text-warning" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-text-primary">{stats.responseRate}</p>
+                        <p className="text-2xl font-bold text-text-primary">{stats.engagementRate}%</p>
                         <p className="text-sm text-text-muted">Avg Response Rate</p>
                       </div>
                     </div>

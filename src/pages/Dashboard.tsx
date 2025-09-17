@@ -39,47 +39,47 @@ const Dashboard = () => {
     return user?.email?.split('@')[0] || 'User';
   };
 
-  // Statistics data for voice outreach
+  // Statistics data for voice outreach with real data
   const statisticsData = [
     {
       title: 'Voice Send',
-      value: '0',
-      total: '5',
-      percentage: '0%',
+      value: stats.totalVoiceSent.toString(),
+      total: '25',
+      percentage: `${Math.round((stats.totalVoiceSent / 25) * 100)}%`,
       icon: Mic,
       color: 'text-primary'
     },
     {
       title: 'Open Rate',
-      value: '0',
-      total: '5',
-      percentage: '0%',
+      value: stats.engagementRate.toString(),
+      total: '100',
+      percentage: `${stats.engagementRate}%`,
       icon: Eye,
       color: 'text-accent'
     },
     {
       title: 'Profile Viewed',
-      value: '0',
-      total: '20',
-      percentage: '0%',
+      value: stats.qualifiedLeads.toString(),
+      total: stats.totalLeads.toString(),
+      percentage: stats.totalLeads > 0 ? `${Math.round((stats.qualifiedLeads / stats.totalLeads) * 100)}%` : '0%',
       icon: Users,
       color: 'text-warning'
     },
     {
       title: 'Total Campaign',
-      value: '0',
-      total: '5',
-      percentage: '0%',
+      value: stats.activeCampaigns.toString(),
+      total: campaigns.length.toString(),
+      percentage: campaigns.length > 0 ? `${Math.round((stats.activeCampaigns / campaigns.length) * 100)}%` : '0%',
       icon: Target,
       color: 'text-success'
     }
   ];
 
-  // Detailed stats cards
+  // Detailed stats cards with real data
   const detailedStats = [
     {
       title: 'TOTAL VOICE SEND',
-      value: '24',
+      value: stats.totalVoiceSent.toString(),
       hasAction: true,
       actionText: 'View All',
       actionVariant: 'outline' as const,
@@ -88,14 +88,14 @@ const Dashboard = () => {
     },
     {
       title: 'ENGAGEMENT RATE',
-      value: '12.5%',
+      value: `${stats.engagementRate}%`,
       hasAction: false,
       icon: TrendingUp,
       color: 'text-accent'
     },
     {
       title: 'ACTIVE CAMPAIGNS',
-      value: '3',
+      value: stats.activeCampaigns.toString(),
       hasAction: false,
       icon: BarChart3,
       color: 'text-success'

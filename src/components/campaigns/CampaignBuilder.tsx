@@ -8,7 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { 
   Plus, 
   Save, 
@@ -31,10 +30,6 @@ import {
   Download
 } from 'lucide-react';
 import { useCampaignBuilder } from '@/hooks/useCampaignBuilder';
-import { SequenceBuilder } from './SequenceBuilder';
-import { AudienceBuilder } from './AudienceBuilder';
-import { CampaignScheduler } from './CampaignScheduler';
-import { CampaignAnalytics } from './CampaignAnalytics';
 import { useToast } from '@/hooks/use-toast';
 
 interface CampaignBuilderProps {
@@ -46,16 +41,8 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ campaignId, on
   const { toast } = useToast();
   const {
     campaign,
-    sequences,
-    targets,
-    analytics,
     loading,
     saveCampaign,
-    createSequence,
-    updateSequence,
-    deleteSequence,
-    addTargets,
-    removeTarget,
     launchCampaign,
     pauseCampaign,
     resumeCampaign
@@ -64,22 +51,16 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ campaignId, on
   const [activeTab, setActiveTab] = useState('overview');
   const [campaignForm, setCampaignForm] = useState({
     name: '',
-    description: '',
-    campaign_type: 'outreach',
+    message_template: '',
     target_audience: {},
-    schedule_settings: {},
-    throttle_settings: { messages_per_day: 50, messages_per_hour: 10 }
   });
 
   useEffect(() => {
     if (campaign) {
       setCampaignForm({
         name: campaign.name || '',
-        description: campaign.description || '',
-        campaign_type: campaign.campaign_type || 'outreach',
+        message_template: campaign.message_template || '',
         target_audience: campaign.target_audience || {},
-        schedule_settings: campaign.schedule_settings || {},
-        throttle_settings: campaign.throttle_settings || { messages_per_day: 50, messages_per_hour: 10 }
       });
     }
   }, [campaign]);
@@ -116,21 +97,6 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ campaignId, on
     }
   };
 
-  const getCampaignProgress = () => {
-    if (!targets?.length) return 0;
-    const completed = targets.filter(t => t.status === 'completed').length;
-    return Math.round((completed / targets.length) * 100);
-  };
-
-  const getCampaignStats = () => {
-    const totalTargets = targets?.length || 0;
-    const completed = targets?.filter(t => t.status === 'completed').length || 0;
-    const inProgress = targets?.filter(t => t.status === 'in_progress').length || 0;
-    const pending = targets?.filter(t => t.status === 'pending').length || 0;
-    
-    return { totalTargets, completed, inProgress, pending };
-  };
-
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -138,8 +104,6 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ campaignId, on
       </div>
     );
   }
-
-  const stats = getCampaignStats();
 
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
@@ -159,7 +123,6 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ campaignId, on
             <Button 
               onClick={handleLaunchCampaign}
               className="bg-gradient-primary hover:shadow-primary hover-lift"
-              disabled={!sequences?.length || !targets?.length}
             >
               <Play className="h-4 w-4 mr-2" />
               Launch Campaign
@@ -216,34 +179,27 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ campaignId, on
                 </Badge>
                 <span className="text-text-muted">•</span>
                 <span className="text-sm text-text-muted">
-                  {stats.totalTargets} targets • {sequences?.length || 0} sequences
+                  Voice DM Campaign
                 </span>
-              </div>
-              
-              <div className="text-right">
-                <div className="text-sm font-medium text-text-primary">
-                  {getCampaignProgress()}% Complete
-                </div>
-                <Progress value={getCampaignProgress()} className="w-32 h-2 mt-1" />
               </div>
             </div>
             
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-text-primary">{stats.totalTargets}</div>
-                <div className="text-xs text-text-muted">Total Targets</div>
+                <div className="text-2xl font-bold text-text-primary">{campaign.voice_count || 0}</div>
+                <div className="text-xs text-text-muted">Voice Messages Sent</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-accent">{stats.inProgress}</div>
-                <div className="text-xs text-text-muted">In Progress</div>
+                <div className="text-2xl font-bold text-accent">{campaign.response_count || 0}</div>
+                <div className="text-xs text-text-muted">Responses Received</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">{stats.completed}</div>
-                <div className="text-xs text-text-muted">Completed</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-warning">{stats.pending}</div>
-                <div className="text-xs text-text-muted">Pending</div>
+                <div className="text-2xl font-bold text-primary">
+                  {campaign.voice_count && campaign.voice_count > 0 
+                    ? Math.round(((campaign.response_count || 0) / campaign.voice_count) * 100) 
+                    : 0}%
+                </div>
+                <div className="text-xs text-text-muted">Response Rate</div>
               </div>
             </div>
           </CardContent>
@@ -257,21 +213,13 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ campaignId, on
             <Settings className="h-4 w-4" />
             <span>Overview</span>
           </TabsTrigger>
+          <TabsTrigger value="message" className="flex items-center space-x-2">
+            <MessageSquare className="h-4 w-4" />
+            <span>Message</span>
+          </TabsTrigger>
           <TabsTrigger value="audience" className="flex items-center space-x-2">
             <Users className="h-4 w-4" />
             <span>Audience</span>
-          </TabsTrigger>
-          <TabsTrigger value="sequences" className="flex items-center space-x-2">
-            <MessageSquare className="h-4 w-4" />
-            <span>Sequences</span>
-          </TabsTrigger>
-          <TabsTrigger value="schedule" className="flex items-center space-x-2">
-            <Calendar className="h-4 w-4" />
-            <span>Schedule</span>
-          </TabsTrigger>
-          <TabsTrigger value="analytics" className="flex items-center space-x-2">
-            <BarChart3 className="h-4 w-4" />
-            <span>Analytics</span>
           </TabsTrigger>
         </TabsList>
 
@@ -285,129 +233,72 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({ campaignId, on
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="name">Campaign Name</Label>
-                    <Input
-                      id="name"
-                      value={campaignForm.name}
-                      onChange={(e) => setCampaignForm(prev => ({ ...prev, name: e.target.value }))}
-                      placeholder="Enter campaign name"
-                      className="mt-1"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="type">Campaign Type</Label>
-                    <Select
-                      value={campaignForm.campaign_type}
-                      onValueChange={(value) => setCampaignForm(prev => ({ ...prev, campaign_type: value }))}
-                    >
-                      <SelectTrigger className="mt-1">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="outreach">Outreach</SelectItem>
-                        <SelectItem value="engagement">Engagement</SelectItem>
-                        <SelectItem value="voice_cloning">Voice Cloning</SelectItem>
-                        <SelectItem value="follow_up">Follow Up</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
+              <div className="space-y-4">
                 <div>
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={campaignForm.description}
-                    onChange={(e) => setCampaignForm(prev => ({ ...prev, description: e.target.value }))}
-                    placeholder="Describe your campaign goals and strategy"
-                    className="mt-1 min-h-[120px]"
+                  <Label htmlFor="name">Campaign Name</Label>
+                  <Input
+                    id="name"
+                    value={campaignForm.name}
+                    onChange={(e) => setCampaignForm(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="Enter campaign name"
+                    className="mt-1"
                   />
-                </div>
-              </div>
-              
-              {/* Throttle Settings */}
-              <div className="border-t pt-6">
-                <h3 className="text-lg font-semibold text-text-primary mb-4">Throttle Settings</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <Label htmlFor="messagesPerDay">Messages Per Day</Label>
-                    <Input
-                      id="messagesPerDay"
-                      type="number"
-                      value={campaignForm.throttle_settings.messages_per_day}
-                      onChange={(e) => setCampaignForm(prev => ({
-                        ...prev,
-                        throttle_settings: {
-                          ...prev.throttle_settings,
-                          messages_per_day: parseInt(e.target.value)
-                        }
-                      }))}
-                      className="mt-1"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="messagesPerHour">Messages Per Hour</Label>
-                    <Input
-                      id="messagesPerHour"
-                      type="number"
-                      value={campaignForm.throttle_settings.messages_per_hour}
-                      onChange={(e) => setCampaignForm(prev => ({
-                        ...prev,
-                        throttle_settings: {
-                          ...prev.throttle_settings,
-                          messages_per_hour: parseInt(e.target.value)
-                        }
-                      }))}
-                      className="mt-1"
-                    />
-                  </div>
                 </div>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
 
+        {/* Message Tab */}
+        <TabsContent value="message" className="space-y-6">
+          <Card className="glass border-border/50">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <MessageSquare className="h-5 w-5 text-primary" />
+                <span>Voice Message Template</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <Label htmlFor="message">Message Template</Label>
+                <Textarea
+                  id="message"
+                  value={campaignForm.message_template}
+                  onChange={(e) => setCampaignForm(prev => ({ ...prev, message_template: e.target.value }))}
+                  placeholder="Write your voice message template here..."
+                  className="mt-1 min-h-[120px]"
+                />
+                <p className="text-sm text-text-muted mt-2">
+                  This template will be used to generate personalized voice messages for your campaign.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Audience Tab */}
-        <TabsContent value="audience">
-          <AudienceBuilder 
-            campaignId={campaignId}
-            targets={targets}
-            onAddTargets={addTargets}
-            onRemoveTarget={removeTarget}
-          />
-        </TabsContent>
-
-        {/* Sequences Tab */}
-        <TabsContent value="sequences">
-          <SequenceBuilder
-            campaignId={campaignId}
-            sequences={sequences}
-            onCreateSequence={createSequence}
-            onUpdateSequence={updateSequence}
-            onDeleteSequence={deleteSequence}
-          />
-        </TabsContent>
-
-        {/* Schedule Tab */}
-        <TabsContent value="schedule">
-          <CampaignScheduler
-            campaign={campaign}
-            onUpdateSchedule={(settings) => setCampaignForm(prev => ({ ...prev, schedule_settings: settings }))}
-          />
-        </TabsContent>
-
-        {/* Analytics Tab */}
-        <TabsContent value="analytics">
-          <CampaignAnalytics
-            campaignId={campaignId}
-            analytics={analytics}
-            targets={targets}
-          />
+        <TabsContent value="audience" className="space-y-6">
+          <Card className="glass border-border/50">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Users className="h-5 w-5 text-primary" />
+                <span>Target Audience</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="text-center py-8">
+                <Users className="h-16 w-16 text-text-muted mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-text-primary mb-2">Define Your Audience</h3>
+                <p className="text-text-muted mb-6">
+                  Set up targeting criteria for your voice outreach campaign.
+                </p>
+                <Button className="bg-gradient-primary hover:shadow-primary hover-lift">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add Targeting Rules
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
