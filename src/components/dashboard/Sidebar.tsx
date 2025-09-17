@@ -46,46 +46,47 @@ export const Sidebar = ({ className }: SidebarProps) => {
   };
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-white border-r border-gray-200">
+    <div className="flex flex-col h-full bg-sidebar/95 backdrop-blur-xl border-r border-sidebar-border/50 glass">
       {/* Logo */}
-      <div className="flex items-center h-16 px-6 border-b border-gray-200">
+      <div className="flex items-center h-16 px-6 border-b border-sidebar-border/30">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-primary rounded-xl flex items-center justify-center shadow-glow hover-scale">
             <Mic2 className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold text-gray-900">VoiceLead</span>
+          <span className="text-xl font-bold font-display text-sidebar-foreground">VoiceLead</span>
         </div>
       </div>
 
       {/* User Info */}
-      <div className="p-6 border-b border-gray-200">
+      <div className="p-6 border-b border-sidebar-border/30">
         <div className="flex items-center space-x-3 mb-4">
-          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-            <span className="text-white font-semibold text-sm">
+          <div className="w-12 h-12 bg-gradient-to-br from-primary via-primary-glow to-accent rounded-xl flex items-center justify-center shadow-glow ring-2 ring-primary/20 hover-scale">
+            <span className="text-white font-bold text-lg">
               {user?.email?.charAt(0).toUpperCase()}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">
+            <p className="text-sm font-semibold text-sidebar-foreground truncate">
               {user?.email}
             </p>
             <div className="flex items-center gap-2 mt-1">
-              <Badge variant="secondary" className="text-xs px-2 py-0.5">
+              <Badge className="text-xs bg-warning/20 text-warning border-warning/30 px-2 py-0.5">
                 Free Plan
               </Badge>
             </div>
           </div>
         </div>
         <Link to="/upgrade">
-          <Button size="sm" className="w-full bg-primary hover:bg-primary/90 text-white font-medium transition-colors">
+          <Button size="sm" className="w-full bg-gradient-primary hover:shadow-premium text-white font-semibold hover-lift transition-all duration-300 rounded-xl">
             <Crown className="h-4 w-4 mr-2" />
             Upgrade Plan
+            <Sparkles className="h-4 w-4 ml-2" />
           </Button>
         </Link>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-1 p-4 space-y-2">
         {navigation.map((item) => {
           const isActive = location.pathname === item.href;
           return (
@@ -93,17 +94,23 @@ export const Sidebar = ({ className }: SidebarProps) => {
               key={item.name}
               to={item.href}
               className={cn(
-                'flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors group',
+                'flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 hover-lift group relative overflow-hidden',
                 isActive
-                  ? 'bg-primary text-white'
-                  : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                  ? 'bg-gradient-primary text-white shadow-glow'
+                  : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50'
               )}
               onClick={() => setIsMobileOpen(false)}
             >
-              <item.icon className="h-5 w-5 mr-3" />
-              <span>{item.name}</span>
+              <item.icon className={cn(
+                "h-5 w-5 mr-3 transition-all duration-300",
+                isActive ? "text-white scale-110" : "group-hover:scale-110"
+              )} />
+              <span className="relative z-10">{item.name}</span>
               {item.name === 'Campaigns' && (
-                <Badge variant="secondary" className="ml-auto text-xs">3</Badge>
+                <Badge className="ml-auto bg-accent/20 text-accent text-xs border-accent/30 hover-scale">3</Badge>
+              )}
+              {!isActive && (
+                <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
               )}
             </Link>
           );
@@ -111,13 +118,13 @@ export const Sidebar = ({ className }: SidebarProps) => {
       </nav>
 
       {/* Sign Out */}
-      <div className="p-4 border-t border-gray-200">
+      <div className="p-4 border-t border-sidebar-border/30">
         <Button
           variant="ghost"
           onClick={handleSignOut}
-          className="w-full justify-start text-gray-700 hover:text-red-600 hover:bg-red-50 transition-colors"
+          className="w-full justify-start text-sidebar-foreground/70 hover:text-error hover:bg-error/10 rounded-xl transition-all duration-300 hover-lift group"
         >
-          <LogOut className="h-5 w-5 mr-3" />
+          <LogOut className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
           Sign Out
         </Button>
       </div>

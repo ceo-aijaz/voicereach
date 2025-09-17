@@ -19,7 +19,7 @@ import {
   ArrowRight,
   PlayCircle
 } from 'lucide-react';
-import { GlowEffect, MagneticEffect } from '@/components/effects/PremiumEffects';
+
 
 const features = [
   {
@@ -75,102 +75,94 @@ const stats = [
 
 export function Features() {
   return (
-    <section id="features" className="section-margin bg-gradient-to-br from-surface/30 to-primary-ultralight/20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    <section id="features" className="section-margin bg-gradient-to-br from-slate-50/50 to-white dark:from-slate-900/50 dark:to-slate-800 relative">
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
       <div className="container mx-auto section-padding relative z-10">
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-20 animate-fade-up">
-          <Badge className="mb-8 glass-premium text-primary border-primary/20 px-6 py-3 text-lg hover-premium">
-            <Sparkles className="h-5 w-5 mr-2" />
+        <div className="text-center max-w-4xl mx-auto mb-20 opacity-0 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
+          <Badge className="mb-8 bg-primary/10 text-primary border-primary/20 px-6 py-3 text-sm font-medium">
+            <Sparkles className="h-4 w-4 mr-2" />
             Powerful AI Features
           </Badge>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-display mb-8 leading-tight">
-            <span className="text-gradient-primary animate-gradient-x bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
+            <span className="text-primary">
               Powerful Features
             </span>
             <br />
-            <span className="text-text-primary">Built for Scale</span>
+            <span className="text-slate-900 dark:text-white">Built for Scale</span>
           </h2>
-          <p className="text-lg sm:text-xl lg:text-2xl text-text-muted leading-relaxed mb-8">
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
             From voice cloning to campaign automation, VoiceLead gives you everything needed to 
             <span className="text-primary font-semibold"> dominate Facebook outreach</span> and 10x your response rates.
           </p>
           <Link to="/auth">
-            <Button className="bg-gradient-primary hover:shadow-premium text-white text-lg font-bold px-8 py-4 h-auto hover-premium group rounded-2xl border-0 shadow-xl uppercase tracking-wide hover-scale transition-all duration-300">
-              <PlayCircle className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+            <Button className="bg-primary hover:bg-primary/90 text-white text-lg font-semibold px-8 py-4 h-auto rounded-lg transition-all duration-200 hover:scale-105">
+              <PlayCircle className="mr-2 h-5 w-5" />
               See How It Works
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
         </div>
 
         {/* Feature Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
           {features.map((feature, index) => (
-            <MagneticEffect key={index}>
-              <GlowEffect>
-                <Card 
-                  className="group hover-premium premium-border bg-gradient-card border-border/50 hover:border-primary/20 transition-all duration-normal animate-bounce-in h-full"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <CardContent className="p-6 lg:p-8 h-full flex flex-col">
-                    <div className="flex items-center justify-between mb-6">
-                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg group-hover:shadow-premium transition-all hover-float`}>
-                        <feature.icon className="h-7 w-7 text-white" />
-                      </div>
-                      <Badge variant="secondary" className="text-xs animate-bounce-in" style={{ animationDelay: `${index * 0.2}s` }}>
-                        {feature.badge}
-                      </Badge>
-                    </div>
-                    
-                    <h3 className="text-xl lg:text-2xl font-semibold mb-4 text-text-primary group-hover:text-primary transition-colors">
-                      {feature.title}
-                    </h3>
-                    
-                    <p className="text-text-muted leading-relaxed text-base lg:text-lg flex-grow">
-                      {feature.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </GlowEffect>
-            </MagneticEffect>
+            <Card 
+              key={index}
+              className="group border border-slate-200 dark:border-slate-700 hover:border-primary/30 transition-all duration-300 hover:shadow-lg opacity-0 animate-fade-in h-full"
+              style={{ animationDelay: `${(index + 1) * 0.1}s`, animationFillMode: 'forwards' }}
+            >
+              <CardContent className="p-8 h-full flex flex-col">
+                <div className="flex items-center justify-between mb-6">
+                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-sm group-hover:shadow-md transition-all`}>
+                    <feature.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <Badge variant="secondary" className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                    {feature.badge}
+                  </Badge>
+                </div>
+                
+                <h3 className="text-xl font-semibold mb-4 text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                  {feature.title}
+                </h3>
+                
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed flex-grow">
+                  {feature.description}
+                </p>
+              </CardContent>
+            </Card>
           ))}
         </div>
 
         {/* Stats Section */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-premium opacity-15 rounded-3xl blur-3xl animate-pulse-glow"></div>
-          <GlowEffect>
-            <Card className="relative glass-premium border-primary/20 shadow-premium hover-tilt">
-              <CardContent className="p-8 md:p-16">
-                <div className="text-center mb-12">
-                  <h3 className="text-3xl lg:text-4xl font-bold font-display mb-6">
-                    <span className="text-gradient-primary animate-gradient-x bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text">
-                      Platform Performance
+        <Card className="border border-slate-200 dark:border-slate-700 shadow-lg opacity-0 animate-fade-in" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
+          <CardContent className="p-8 md:p-16">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl lg:text-4xl font-bold mb-6">
+                <span className="text-primary">
+                  Platform Performance
+                </span>
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+                Trusted by 300+ agencies worldwide for reliable, high-performance voice automation that delivers results
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center group opacity-0 animate-fade-in" style={{ animationDelay: `${(index + 10) * 0.1}s`, animationFillMode: 'forwards' }}>
+                  <div className="flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                    <stat.icon className={`h-8 w-8 ${stat.color} mr-3`} />
+                    <span className="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white">
+                      {stat.value}
                     </span>
-                  </h3>
-                  <p className="text-text-muted text-lg lg:text-xl max-w-2xl mx-auto">
-                    Trusted by 300+ agencies worldwide for reliable, high-performance voice automation that delivers results
-                  </p>
+                  </div>
+                  <p className="text-slate-600 dark:text-slate-400 font-medium text-sm">{stat.label}</p>
                 </div>
-                
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-                  {stats.map((stat, index) => (
-                    <div key={index} className="text-center group cursor-pointer animate-bounce-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                      <div className="flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                        <stat.icon className={`h-10 w-10 ${stat.color} mr-3`} />
-                        <span className="text-4xl lg:text-5xl font-bold text-text-primary">
-                          {stat.value}
-                        </span>
-                      </div>
-                      <p className="text-text-muted font-semibold text-sm lg:text-base">{stat.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </GlowEffect>
-        </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
