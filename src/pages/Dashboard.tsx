@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sidebar, SidebarProvider, useSidebar } from '@/components/dashboard/Sidebar';
+import { Sidebar } from '@/components/dashboard/Sidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MobileOptimized } from '@/components/mobile/MobileOptimized';
 import { useRealTimeData } from '@/hooks/useRealTimeData';
 import { useAuth } from '@/contexts/AuthContext';
-import { CollapseMenuIcon } from '@/components/ui/collapse-menu';
 import { 
   Users, 
   MessageSquare, 
@@ -24,10 +23,9 @@ import {
   BarChart3
 } from 'lucide-react';
 
-const DashboardContent = () => {
+const Dashboard = () => {
   const { user } = useAuth();
   const { stats, campaigns, loading } = useRealTimeData();
-  const { isCollapsed, setIsCollapsed } = useSidebar();
 
   // Get current time and greeting
   const getGreeting = () => {
@@ -108,20 +106,8 @@ const DashboardContent = () => {
     <div className="min-h-screen bg-background">
       <Sidebar />
       
-      <div className={`min-h-screen transition-all duration-300 ${isCollapsed ? 'lg:ml-16' : 'lg:ml-64'}`}>
-        {/* Collapse Toggle Button */}
-        <div className="hidden lg:block fixed top-4 left-4 z-50">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="glass border border-border/50 shadow-glow hover-lift transition-all duration-300 text-text-primary hover:text-primary"
-          >
-            <CollapseMenuIcon className={`h-5 w-5 transition-transform duration-300 ${isCollapsed ? 'rotate-180' : ''}`} />
-          </Button>
-        </div>
-        
-        <MobileOptimized className="p-6 lg:p-8 max-w-7xl mx-auto pt-16 lg:pt-8">
+      <div className="lg:ml-64 min-h-screen">
+        <MobileOptimized className="p-6 lg:p-8 max-w-7xl mx-auto">
           {/* Campaign Status Alert */}
           <div className="mb-6 animate-fade-up">
             <div className="glass border border-primary/20 rounded-lg p-4 flex items-center gap-3">
@@ -275,14 +261,6 @@ const DashboardContent = () => {
         </MobileOptimized>
       </div>
     </div>
-  );
-};
-
-const Dashboard = () => {
-  return (
-    <SidebarProvider>
-      <DashboardContent />
-    </SidebarProvider>
   );
 };
 
