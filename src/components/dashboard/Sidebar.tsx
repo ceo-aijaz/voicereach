@@ -11,6 +11,7 @@ import {
   LayoutDashboard, 
   Users, 
   Facebook, 
+  Instagram,
   MessageSquare, 
   Mic2, 
   Settings, 
@@ -26,7 +27,7 @@ import { useState } from 'react';
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Leads', href: '/leads', icon: Users },
-  { name: 'Facebook Accounts', href: '/facebook', icon: Facebook },
+  { name: 'Instagram Accounts', href: '/instagram', icon: Instagram },
   { name: 'Campaigns', href: '/campaigns', icon: MessageSquare },
   { name: 'Voice Cloning', href: '/voice', icon: Mic2 },
   { name: 'Analytics', href: '/analytics', icon: TrendingUp },

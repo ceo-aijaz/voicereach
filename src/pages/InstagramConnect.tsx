@@ -116,9 +116,9 @@ export const InstagramConnect = () => {
           description: `Instagram account @${formData.username} has been connected successfully!`,
         });
 
-        // Redirect to dashboard after a short delay
+        // Redirect to Instagram accounts page after a short delay
         setTimeout(() => {
-          navigate('/dashboard');
+          navigate('/instagram');
         }, 2000);
       } else {
         updateStatus({
@@ -152,7 +152,7 @@ export const InstagramConnect = () => {
   };
 
   const handleCancel = () => {
-    navigate('/dashboard');
+    navigate('/instagram');
   };
 
   return (
