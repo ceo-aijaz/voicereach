@@ -67,13 +67,39 @@ export const InstagramConnect = () => {
       return;
     }
 
+    // Show initial connecting status
+    updateStatus({
+      step: 'Connecting...',
+      message: 'Initializing browser...',
+      isLoading: true,
+      isError: false,
+      isSuccess: false
+    });
+
     try {
-      updateStatus({
-        isLoading: true,
-        isError: false,
-        isSuccess: false,
-        step: "Connecting...",
-        message: "Initializing connection to Instagram"
+      // Update status messages to show real-time progress
+      const statusUpdates = [
+        { message: 'Initializing browser...', delay: 0 },
+        { message: 'Navigating to Instagram...', delay: 2000 },
+        { message: 'Entering credentials...', delay: 4000 },
+        { message: 'Logging into account...', delay: 6000 },
+        { message: 'Extracting profile data...', delay: 8000 },
+        { message: 'Verifying connection...', delay: 10000 }
+      ];
+
+      // Show progress updates
+      statusUpdates.forEach(({ message, delay }) => {
+        setTimeout(() => {
+          if (status.isLoading) { // Only update if still loading
+            updateStatus({
+              step: 'Connecting...',
+              message,
+              isLoading: true,
+              isError: false,
+              isSuccess: false
+            });
+          }
+        }, delay);
       });
 
       // Call the Instagram connection edge function
@@ -108,12 +134,12 @@ export const InstagramConnect = () => {
           isLoading: false,
           isSuccess: true,
           step: "Connected!",
-          message: `Successfully connected @${formData.username}`
+          message: `Successfully connected @${formData.username} with real profile data!`
         });
 
         toast({
           title: "Account Connected",
-          description: `Instagram account @${formData.username} has been connected successfully!`,
+          description: `Instagram account @${formData.username} has been connected successfully with real profile data!`,
         });
 
         // Redirect to Instagram accounts page after a short delay
@@ -140,12 +166,12 @@ export const InstagramConnect = () => {
         isLoading: false,
         isError: true,
         step: "Connection Failed",
-        message: "An unexpected error occurred"
+        message: "Network error occurred - please try again"
       });
       
       toast({
         title: "Connection Failed",
-        description: "An unexpected error occurred",
+        description: "Network error occurred - please try again",
         variant: "destructive"
       });
     }

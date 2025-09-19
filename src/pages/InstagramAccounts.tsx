@@ -148,16 +148,40 @@ const InstagramAccounts = () => {
                   ) : accounts.length > 0 ? (
                     accounts.map((account, index) => (
                       <div key={account.id} className="p-6 rounded-lg bg-surface/50 hover:bg-surface transition-all hover-lift" style={{ animationDelay: `${index * 0.1}s` }}>
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="w-12 h-12 bg-gradient-to-br from-pink-600 to-purple-800 rounded-full flex items-center justify-center">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center space-x-4">
+                          <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-pink-600 to-purple-800 flex items-center justify-center">
+                            {account.session_data?.profilePicture || account.session_data?.sessionData?.profilePicture ? (
+                              <img 
+                                src={account.session_data?.profilePicture || account.session_data?.sessionData?.profilePicture} 
+                                alt={`@${account.instagram_username}`}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.style.display = 'none';
+                                  target.nextElementSibling?.classList.remove('hidden');
+                                }}
+                              />
+                            ) : (
                               <Instagram className="h-6 w-6 text-white" />
-                            </div>
-                            <div>
-                              <h4 className="font-semibold text-text-primary">@{account.instagram_username}</h4>
-                              <p className="text-sm text-text-muted">{account.email}</p>
-                            </div>
+                            )}
+                            <Instagram className="h-6 w-6 text-white hidden" />
                           </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-semibold text-text-primary">@{account.instagram_username}</h4>
+                              {(account.session_data?.isVerified || account.session_data?.sessionData?.isVerified) && (
+                                <CheckCircle className="h-4 w-4 text-blue-500" />
+                              )}
+                            </div>
+                            <p className="text-sm text-text-muted">{account.email}</p>
+                            {(account.session_data?.bio || account.session_data?.sessionData?.bio) && (
+                              <p className="text-xs text-text-muted truncate max-w-[200px] mt-1">
+                                {account.session_data?.bio || account.session_data?.sessionData?.bio}
+                              </p>
+                            )}
+                          </div>
+                        </div>
                           
                           <div className="flex items-center space-x-4">
                             <Badge className={getStatusColor(account.status)} variant="secondary">
@@ -170,16 +194,25 @@ const InstagramAccounts = () => {
                         
                         <div className="grid grid-cols-3 gap-4 mb-4">
                           <div className="text-center">
-                            <p className="text-lg font-bold text-text-primary">5</p>
-                            <p className="text-xs text-text-muted">Sent Today</p>
+                            <p className="text-lg font-bold text-text-primary">
+                              {account.session_data?.followers || 
+                               account.session_data?.sessionData?.followers || '0'}
+                            </p>
+                            <p className="text-xs text-text-muted">Followers</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-lg font-bold text-text-primary">50</p>
-                            <p className="text-xs text-text-muted">Daily Limit</p>
+                            <p className="text-lg font-bold text-text-primary">
+                              {account.session_data?.following || 
+                               account.session_data?.sessionData?.following || '0'}
+                            </p>
+                            <p className="text-xs text-text-muted">Following</p>
                           </div>
                           <div className="text-center">
-                            <p className="text-lg font-bold text-accent">12.5%</p>
-                            <p className="text-xs text-text-muted">Response Rate</p>
+                            <p className="text-lg font-bold text-accent">
+                              {account.session_data?.posts || 
+                               account.session_data?.sessionData?.posts || '0'}
+                            </p>
+                            <p className="text-xs text-text-muted">Posts</p>
                           </div>
                         </div>
                         
