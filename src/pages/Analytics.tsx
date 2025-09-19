@@ -20,6 +20,16 @@ import {
 const Analytics = () => {
   const { stats, campaigns, leads, voiceAccounts, loading } = useRealTimeData();
 
+  // Debug logging to see real data
+  console.log('Analytics Data:', {
+    campaignsCount: campaigns.length,
+    leadsCount: leads.length,
+    voiceAccountsCount: voiceAccounts.length,
+    voiceAccounts: voiceAccounts,
+    leads: leads,
+    campaigns: campaigns
+  });
+
   // Calculate real analytics data
   const totalVoiceSent = voiceAccounts.filter(va => va.voice_message_sent).length;
   const totalVoiceOpened = voiceAccounts.filter(va => va.voice_message_opened).length;
@@ -28,38 +38,47 @@ const Analytics = () => {
   const openRate = totalVoiceSent > 0 ? (totalVoiceOpened / totalVoiceSent * 100) : 0;
   const conversionRate = leads.length > 0 ? (leads.filter(lead => lead.status === 'responded').length / leads.length * 100) : 0;
 
+  console.log('Calculated Analytics:', {
+    totalVoiceSent,
+    totalVoiceOpened,
+    totalResponses,
+    responseRate,
+    openRate,
+    conversionRate
+  });
+
   const metrics = [
     {
       title: "Total Voice Messages",
       value: totalVoiceSent.toString(),
-      change: "+12.5%",
-      trend: "up",
+      change: totalVoiceSent > 0 ? "Active" : "No Data",
+      trend: totalVoiceSent > 0 ? "up" : "neutral",
       icon: MessageCircle,
       color: "text-primary"
     },
     {
       title: "Open Rate",
       value: `${openRate.toFixed(1)}%`,
-      change: "+5.2%",
-      trend: "up",
+      change: openRate > 0 ? "Tracked" : "No Data",
+      trend: openRate > 50 ? "up" : openRate > 0 ? "neutral" : "down",
       icon: TrendingUp,
       color: "text-accent"
     },
     {
       title: "Total Leads",
       value: leads.length.toString(),
-      change: "+8.1%",
-      trend: "up",
+      change: leads.length > 0 ? "Growing" : "New",
+      trend: leads.length > 0 ? "up" : "neutral",
       icon: Users,
       color: "text-warning"
     },
     {
       title: "Response Rate",
       value: `${responseRate.toFixed(1)}%`,
-      change: responseRate > 15 ? "+2.3%" : "-1.3%",
-      trend: responseRate > 15 ? "up" : "down",
+      change: responseRate > 0 ? (responseRate > 25 ? "Good" : "Fair") : "No Data",
+      trend: responseRate > 25 ? "up" : responseRate > 0 ? "neutral" : "down",
       icon: BarChart3,
-      color: responseRate > 15 ? "text-accent" : "text-error"
+      color: responseRate > 25 ? "text-accent" : responseRate > 0 ? "text-warning" : "text-error"
     }
   ];
 
@@ -125,9 +144,21 @@ const Analytics = () => {
                     </div>
                     <Badge 
                       variant="secondary" 
-                      className={`${metric.trend === 'up' ? 'bg-accent/20 text-accent' : 'bg-error/20 text-error'} border-0`}
+                      className={`${
+                        metric.trend === 'up' 
+                          ? 'bg-accent/20 text-accent' 
+                          : metric.trend === 'neutral'
+                          ? 'bg-warning/20 text-warning'
+                          : 'bg-error/20 text-error'
+                      } border-0`}
                     >
-                      {metric.trend === 'up' ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
+                      {metric.trend === 'up' ? (
+                        <TrendingUp className="h-3 w-3 mr-1" />
+                      ) : metric.trend === 'down' ? (
+                        <TrendingDown className="h-3 w-3 mr-1" />
+                      ) : (
+                        <div className="h-3 w-3 mr-1 rounded-full bg-current opacity-60" />
+                      )}
                       {metric.change}
                     </Badge>
                   </div>
