@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
+import { useRealTimeData } from '@/hooks/useRealTimeData';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { 
   LayoutDashboard, 
@@ -38,6 +39,7 @@ interface SidebarProps {
 export const Sidebar = ({ className }: SidebarProps) => {
   const location = useLocation();
   const { signOut, user } = useAuth();
+  const { campaigns } = useRealTimeData();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -106,8 +108,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
                 isActive ? "text-white scale-110" : "group-hover:scale-110"
               )} />
               <span className="relative z-10">{item.name}</span>
-              {item.name === 'Campaigns' && (
-                <Badge className="ml-auto bg-accent/20 text-accent text-xs border-accent/30 hover-scale">3</Badge>
+              {item.name === 'Campaigns' && campaigns.length > 0 && (
+                <Badge className="ml-auto bg-accent/20 text-accent text-xs border-accent/30 hover-scale">{campaigns.length}</Badge>
               )}
               {!isActive && (
                 <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
