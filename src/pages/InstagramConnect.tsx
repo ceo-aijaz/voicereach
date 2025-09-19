@@ -7,8 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/hooks/use-toast';
-import { Eye, EyeOff, Instagram, CheckCircle, XCircle, Loader2, HelpCircle } from 'lucide-react';
+import { Eye, EyeOff, Instagram, CheckCircle, XCircle, Loader2, HelpCircle, AlertTriangle, Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface ConnectionStatus {
@@ -189,6 +190,16 @@ export const InstagramConnect = () => {
             <Instagram className="h-16 w-16 text-[#3B82F6]" />
           </div>
           <CardTitle className="text-2xl font-bold">Connect Instagram Account</CardTitle>
+          
+          {/* Demo Mode Alert */}
+          <Alert variant="info" className="text-left">
+            <Info className="h-4 w-4" />
+            <AlertDescription>
+              <strong>Demo Mode:</strong> This creates a realistic simulation of Instagram connection. 
+              Real automation requires additional infrastructure due to security restrictions.
+            </AlertDescription>
+          </Alert>
+          
           <div className="space-y-2">
             <div className="flex justify-between text-sm text-muted-foreground">
               <span>Step 1 of 3</span>
@@ -260,7 +271,7 @@ export const InstagramConnect = () => {
                       <HelpCircle className="h-4 w-4 text-muted-foreground" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Get this from Instagram 2FA settings</p>
+                      <p>16+ character backup code from Instagram 2FA settings</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -268,7 +279,7 @@ export const InstagramConnect = () => {
               <Input
                 id="twoFactorSecret"
                 type="text"
-                placeholder="Optional: 2FA secret key"
+                placeholder="Optional: 2FA backup code (16+ chars)"
                 value={formData.twoFactorSecret}
                 onChange={(e) => handleInputChange('twoFactorSecret', e.target.value)}
                 disabled={status.isLoading}
@@ -276,7 +287,7 @@ export const InstagramConnect = () => {
             </div>
           </div>
 
-          {/* Status Section */}
+          {/* Real-time Status Updates */}
           {(status.isLoading || status.isError || status.isSuccess) && (
             <div className="border rounded-lg p-4 space-y-3">
               <div className="flex items-center gap-3">
@@ -289,10 +300,24 @@ export const InstagramConnect = () => {
                 </div>
               </div>
               {status.isLoading && (
-                <Progress value={50} className="h-2" />
+                <div className="space-y-2">
+                  <Progress value={Math.min((Date.now() % 15000) / 150, 90)} className="h-2" />
+                  <p className="text-xs text-muted-foreground">
+                    Simulating realistic connection delays...
+                  </p>
+                </div>
               )}
             </div>
           )}
+
+          {/* Security Information */}
+          <Alert variant="warning">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertDescription>
+              Your credentials are processed securely and encrypted in the database. 
+              This demo simulates real Instagram automation behavior with realistic validation and responses.
+            </AlertDescription>
+          </Alert>
 
           {/* Action Buttons */}
           <div className="space-y-3">
@@ -304,10 +329,10 @@ export const InstagramConnect = () => {
               {status.isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Connecting...
+                  Connecting to Instagram...
                 </>
               ) : (
-                'Connect Account'
+                'Connect Account (Demo)'
               )}
             </Button>
             
@@ -319,6 +344,12 @@ export const InstagramConnect = () => {
             >
               Cancel
             </Button>
+          </div>
+
+          {/* Demo Mode Explanation */}
+          <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
+            <strong>How this works:</strong> This demo creates realistic Instagram profile data and stores it securely. 
+            For production use with real Instagram automation, additional security measures and infrastructure would be required.
           </div>
         </CardContent>
       </Card>
