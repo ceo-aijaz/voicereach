@@ -299,3 +299,5 @@ export const InstagramConnect = () => {
     </div>
   );
 };
+
+export default InstagramConnect;

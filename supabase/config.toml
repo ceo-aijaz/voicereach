@@ -11,3 +11,6 @@ verify_jwt = true
 
 [functions.voice-outreach]
 verify_jwt = true
+
+[functions.instagram-connect]
+verify_jwt = true
