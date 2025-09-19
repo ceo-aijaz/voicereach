@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRealTimeData } from '@/hooks/useRealTimeData';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useTrialStatus } from '@/hooks/useTrialStatus';
 import { 
   LayoutDashboard, 
   Users, 
@@ -40,6 +41,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
   const location = useLocation();
   const { signOut, user } = useAuth();
   const { campaigns } = useRealTimeData();
+  const trialStatus = useTrialStatus();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -72,19 +74,44 @@ export const Sidebar = ({ className }: SidebarProps) => {
               {user?.email}
             </p>
             <div className="flex items-center gap-2 mt-1">
-              <Badge className="text-xs bg-warning/20 text-warning border-warning/30 px-2 py-0.5">
-                Free Plan
+              <Badge className={`text-xs px-2 py-0.5 ${trialStatus.getTrialColor()}`}>
+                {trialStatus.getTrialMessage()}
               </Badge>
             </div>
           </div>
         </div>
         <Link to="/upgrade">
-          <Button size="sm" className="w-full bg-gradient-primary hover:shadow-premium text-white font-semibold hover-lift transition-all duration-300 rounded-xl">
+          <Button 
+            size="sm" 
+            className={cn(
+              "w-full font-semibold hover-lift transition-all duration-300 rounded-xl",
+              trialStatus.shouldShowUpgrade() 
+                ? "bg-error hover:bg-error/90 text-white shadow-error animate-pulse" 
+                : "bg-gradient-primary hover:shadow-premium text-white"
+            )}
+          >
             <Crown className="h-4 w-4 mr-2" />
-            Upgrade Plan
+            {trialStatus.isTrialExpired 
+              ? "Upgrade Now!" 
+              : trialStatus.isLastDay 
+              ? "Upgrade Today!" 
+              : "Upgrade Plan"
+            }
             <Sparkles className="h-4 w-4 ml-2" />
           </Button>
         </Link>
+        
+        {/* Trial expiration warning */}
+        {trialStatus.shouldShowUpgrade() && (
+          <div className="mt-3 p-3 bg-error/10 border border-error/20 rounded-lg">
+            <p className="text-xs text-error font-medium text-center">
+              {trialStatus.isTrialExpired 
+                ? "Your trial has expired. Upgrade to continue using VoiceLead." 
+                : "Your trial expires today! Upgrade now to avoid service interruption."
+              }
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Navigation */}
