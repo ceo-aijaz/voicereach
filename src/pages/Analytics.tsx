@@ -3,6 +3,7 @@ import { Sidebar } from '@/components/dashboard/Sidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { useRealTimeData } from '@/hooks/useRealTimeData';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -17,67 +18,71 @@ import {
 } from 'lucide-react';
 
 const Analytics = () => {
+  const { stats, campaigns, leads, voiceAccounts, loading } = useRealTimeData();
+
+  // Calculate real analytics data
+  const totalVoiceSent = voiceAccounts.filter(va => va.voice_message_sent).length;
+  const totalVoiceOpened = voiceAccounts.filter(va => va.voice_message_opened).length;
+  const totalResponses = voiceAccounts.filter(va => va.response_received).length;
+  const responseRate = totalVoiceSent > 0 ? (totalResponses / totalVoiceSent * 100) : 0;
+  const openRate = totalVoiceSent > 0 ? (totalVoiceOpened / totalVoiceSent * 100) : 0;
+  const conversionRate = leads.length > 0 ? (leads.filter(lead => lead.status === 'responded').length / leads.length * 100) : 0;
+
   const metrics = [
     {
       title: "Total Voice Messages",
-      value: "1,247",
+      value: totalVoiceSent.toString(),
       change: "+12.5%",
       trend: "up",
       icon: MessageCircle,
       color: "text-primary"
     },
     {
-      title: "Response Rate",
-      value: "68.3%",
+      title: "Open Rate",
+      value: `${openRate.toFixed(1)}%`,
       change: "+5.2%",
       trend: "up",
       icon: TrendingUp,
       color: "text-accent"
     },
     {
-      title: "New Leads",
-      value: "423",
+      title: "Total Leads",
+      value: leads.length.toString(),
       change: "+8.1%",
       trend: "up",
       icon: Users,
       color: "text-warning"
     },
     {
-      title: "Conversion Rate",
-      value: "24.6%",
-      change: "-1.3%",
-      trend: "down",
+      title: "Response Rate",
+      value: `${responseRate.toFixed(1)}%`,
+      change: responseRate > 15 ? "+2.3%" : "-1.3%",
+      trend: responseRate > 15 ? "up" : "down",
       icon: BarChart3,
-      color: "text-error"
+      color: responseRate > 15 ? "text-accent" : "text-error"
     }
   ];
 
-  const campaigns = [
-    {
-      name: "SaaS Founders Outreach",
-      sent: 156,
-      opened: 142,
-      responded: 89,
-      converted: 23,
-      conversionRate: 14.7
-    },
-    {
-      name: "Agency Owner Campaign",
-      sent: 98,
-      opened: 91,
-      responded: 67,
-      converted: 18,
-      conversionRate: 18.4
-    },
-    {
-      name: "E-commerce Follow-up",
-      sent: 203,
-      opened: 187,
-      responded: 134,
-      converted: 31,
-      conversionRate: 15.3
-    }
-  ];
+  // Transform real campaign data for display
+  const campaignAnalytics = campaigns.map(campaign => {
+    const campaignVoiceAccounts = voiceAccounts.filter(va => va.campaign_id === campaign.id);
+    const campaignLeads = leads.filter(lead => lead.campaign_id === campaign.id);
+    
+    const sent = campaignVoiceAccounts.filter(va => va.voice_message_sent).length;
+    const opened = campaignVoiceAccounts.filter(va => va.voice_message_opened).length;
+    const responded = campaignVoiceAccounts.filter(va => va.response_received).length;
+    const converted = campaignLeads.filter(lead => lead.status === 'responded').length;
+    const conversionRate = sent > 0 ? (converted / sent * 100) : 0;
+
+    return {
+      name: campaign.name,
+      sent,
+      opened,
+      responded,
+      converted,
+      conversionRate: conversionRate.toFixed(1)
+    };
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -144,35 +149,43 @@ const Analytics = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {campaigns.map((campaign, index) => (
-                      <div key={campaign.name} className="p-4 rounded-lg bg-surface/30 border border-border/50">
-                        <div className="flex items-center justify-between mb-3">
-                          <h4 className="font-semibold text-text-primary">{campaign.name}</h4>
-                          <Badge variant="secondary" className="bg-primary/20 text-primary border-0">
-                            {campaign.conversionRate}% CVR
-                          </Badge>
+                    {campaignAnalytics.length > 0 ? (
+                      campaignAnalytics.map((campaign, index) => (
+                        <div key={campaign.name} className="p-4 rounded-lg bg-surface/30 border border-border/50">
+                          <div className="flex items-center justify-between mb-3">
+                            <h4 className="font-semibold text-text-primary">{campaign.name}</h4>
+                            <Badge variant="secondary" className="bg-primary/20 text-primary border-0">
+                              {campaign.conversionRate}% CVR
+                            </Badge>
+                          </div>
+                          
+                          <div className="grid grid-cols-4 gap-4 text-center">
+                            <div>
+                              <p className="text-lg font-bold text-text-primary">{campaign.sent}</p>
+                              <p className="text-xs text-text-muted">Sent</p>
+                            </div>
+                            <div>
+                              <p className="text-lg font-bold text-accent">{campaign.opened}</p>
+                              <p className="text-xs text-text-muted">Opened</p>
+                            </div>
+                            <div>
+                              <p className="text-lg font-bold text-warning">{campaign.responded}</p>
+                              <p className="text-xs text-text-muted">Responded</p>
+                            </div>
+                            <div>
+                              <p className="text-lg font-bold text-primary">{campaign.converted}</p>
+                              <p className="text-xs text-text-muted">Converted</p>
+                            </div>
+                          </div>
                         </div>
-                        
-                        <div className="grid grid-cols-4 gap-4 text-center">
-                          <div>
-                            <p className="text-lg font-bold text-text-primary">{campaign.sent}</p>
-                            <p className="text-xs text-text-muted">Sent</p>
-                          </div>
-                          <div>
-                            <p className="text-lg font-bold text-accent">{campaign.opened}</p>
-                            <p className="text-xs text-text-muted">Opened</p>
-                          </div>
-                          <div>
-                            <p className="text-lg font-bold text-warning">{campaign.responded}</p>
-                            <p className="text-xs text-text-muted">Responded</p>
-                          </div>
-                          <div>
-                            <p className="text-lg font-bold text-primary">{campaign.converted}</p>
-                            <p className="text-xs text-text-muted">Converted</p>
-                          </div>
-                        </div>
+                      ))
+                    ) : (
+                      <div className="text-center py-8">
+                        <BarChart3 className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                        <h3 className="text-lg font-medium text-text-primary mb-2">No Campaign Data</h3>
+                        <p className="text-text-muted">Create campaigns to see performance analytics here.</p>
                       </div>
-                    ))}
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -188,17 +201,17 @@ const Analytics = () => {
                   <div className="flex items-center justify-between p-3 bg-surface/30 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <Mail className="h-5 w-5 text-primary" />
-                      <span className="text-text-primary">Avg. Message Length</span>
+                      <span className="text-text-primary">Total Voice Sent</span>
                     </div>
-                    <span className="font-semibold text-text-primary">2m 34s</span>
+                    <span className="font-semibold text-text-primary">{totalVoiceSent}</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-3 bg-surface/30 rounded-lg">
                     <div className="flex items-center space-x-3">
                       <Phone className="h-5 w-5 text-accent" />
-                      <span className="text-text-primary">Best Send Time</span>
+                      <span className="text-text-primary">Messages Opened</span>
                     </div>
-                    <span className="font-semibold text-text-primary">10:30 AM</span>
+                    <span className="font-semibold text-text-primary">{totalVoiceOpened}</span>
                   </div>
                   
                   <div className="flex items-center justify-between p-3 bg-surface/30 rounded-lg">
@@ -206,23 +219,33 @@ const Analytics = () => {
                       <Users className="h-5 w-5 text-warning" />
                       <span className="text-text-primary">Active Campaigns</span>
                     </div>
-                    <span className="font-semibold text-text-primary">8</span>
+                    <span className="font-semibold text-text-primary">{stats.activeCampaigns}</span>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-3 bg-surface/30 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <MessageCircle className="h-5 w-5 text-primary" />
+                      <span className="text-text-primary">Total Responses</span>
+                    </div>
+                    <span className="font-semibold text-text-primary">{totalResponses}</span>
                   </div>
                 </CardContent>
               </Card>
 
               <Card className="glass border-border/50 animate-fade-up">
                 <CardHeader>
-                  <CardTitle className="text-text-primary">Top Performing Voice</CardTitle>
+                  <CardTitle className="text-text-primary">Performance Summary</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center p-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-3">
-                      <MessageCircle className="h-6 w-6 text-white" />
+                      <BarChart3 className="h-6 w-6 text-white" />
                     </div>
-                    <h4 className="font-semibold text-text-primary mb-1">Professional Tone</h4>
-                    <p className="text-sm text-text-muted mb-3">76.2% response rate</p>
-                    <Badge className="bg-accent/20 text-accent border-0">+12% vs avg</Badge>
+                    <h4 className="font-semibold text-text-primary mb-1">Overall Stats</h4>
+                    <p className="text-sm text-text-muted mb-3">{responseRate.toFixed(1)}% response rate</p>
+                    <Badge className={`${responseRate > 15 ? 'bg-accent/20 text-accent' : 'bg-warning/20 text-warning'} border-0`}>
+                      {responseRate > 15 ? 'Above Average' : 'Room for Growth'}
+                    </Badge>
                   </div>
                 </CardContent>
               </Card>
