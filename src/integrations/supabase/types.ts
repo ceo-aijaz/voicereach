@@ -53,48 +53,6 @@ export type Database = {
         }
         Relationships: []
       }
-      instagram_accounts: {
-        Row: {
-          created_at: string
-          email: string
-          encrypted_2fa_secret: string | null
-          encrypted_password: string
-          id: string
-          instagram_username: string
-          last_connected: string | null
-          session_data: Json | null
-          status: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          email: string
-          encrypted_2fa_secret?: string | null
-          encrypted_password: string
-          id?: string
-          instagram_username: string
-          last_connected?: string | null
-          session_data?: Json | null
-          status?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          email?: string
-          encrypted_2fa_secret?: string | null
-          encrypted_password?: string
-          id?: string
-          instagram_username?: string
-          last_connected?: string | null
-          session_data?: Json | null
-          status?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       leads: {
         Row: {
           campaign_id: string | null
@@ -147,36 +105,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      profiles: {
-        Row: {
-          created_at: string
-          id: string
-          subscription_status: string
-          trial_end_date: string
-          trial_start_date: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          subscription_status?: string
-          trial_end_date?: string
-          trial_start_date?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          subscription_status?: string
-          trial_end_date?: string
-          trial_start_date?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
       }
       voice_accounts: {
         Row: {

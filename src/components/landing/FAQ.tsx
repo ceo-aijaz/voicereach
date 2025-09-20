@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Accordion,
   AccordionContent,
@@ -9,36 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { 
-  MessageCircle, 
-  Mic, 
-  Shield, 
-  DollarSign, 
-  Brain, 
-  Plug, 
-  AlertTriangle, 
-  Gift, 
-  Mic2, 
-  CheckCircle, 
-  Headphones, 
-  Search, 
-  Zap 
-} from "lucide-react";
-
-const faqIcons = [
-  Mic,           // Voice cloning
-  Shield,        // Facebook accounts  
-  DollarSign,    // Pricing plans
-  Brain,         // AI lead scoring
-  Plug,          // CRM integration
-  AlertTriangle, // Account flagged
-  Gift,          // Free trial
-  Mic2,          // Voice tones
-  CheckCircle,   // Setup fee
-  Headphones,    // Support
-  Search,        // Lead scraping
-  Zap            // Campaign automation
-];
+import { HelpCircle, Sparkles } from "lucide-react";
 
 const faqs = [
   {
@@ -99,7 +69,7 @@ export function FAQ() {
         {/* Header */}
         <div className="text-center max-w-4xl mx-auto mb-16 opacity-0 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'forwards' }}>
           <Badge className="mb-8 bg-accent/10 text-accent border-accent/20 px-6 py-3 text-sm font-medium">
-            <MessageCircle className="h-4 w-4 mr-2" />
+            <HelpCircle className="h-4 w-4 mr-2" />
             Questions & Answers
           </Badge>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
@@ -127,7 +97,7 @@ export function FAQ() {
                 <AccordionTrigger className="text-left hover:no-underline group py-6">
                   <div className="flex items-center gap-4">
                     <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all">
-                      {React.createElement(faqIcons[index], { className: "h-4 w-4 text-primary" })}
+                      <Sparkles className="h-4 w-4 text-primary" />
                     </div>
                     <span className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">
                       {faq.question}
