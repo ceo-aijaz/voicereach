@@ -4,11 +4,14 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
+import { useRealTimeData } from '@/hooks/useRealTimeData';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useTrialStatus } from '@/hooks/useTrialStatus';
 import { 
   LayoutDashboard, 
   Users, 
   Facebook, 
+  Instagram,
   MessageSquare, 
   Mic2, 
   Settings, 
@@ -24,7 +27,7 @@ import { useState } from 'react';
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Leads', href: '/leads', icon: Users },
-  { name: 'Facebook Accounts', href: '/facebook', icon: Facebook },
+  { name: 'Instagram Accounts', href: '/instagram', icon: Instagram },
   { name: 'Campaigns', href: '/campaigns', icon: MessageSquare },
   { name: 'Voice Cloning', href: '/voice', icon: Mic2 },
   { name: 'Analytics', href: '/analytics', icon: TrendingUp },
@@ -38,6 +41,8 @@ interface SidebarProps {
 export const Sidebar = ({ className }: SidebarProps) => {
   const location = useLocation();
   const { signOut, user } = useAuth();
+  const { campaigns } = useRealTimeData();
+  const trialStatus = useTrialStatus();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -70,19 +75,44 @@ export const Sidebar = ({ className }: SidebarProps) => {
               {user?.email}
             </p>
             <div className="flex items-center gap-2 mt-1">
-              <Badge className="text-xs bg-warning/20 text-warning border-warning/30 px-2 py-0.5">
-                Free Plan
+              <Badge className={`text-xs px-2 py-0.5 ${trialStatus.getTrialColor()}`}>
+                {trialStatus.getTrialMessage()}
               </Badge>
             </div>
           </div>
         </div>
         <Link to="/upgrade">
-          <Button size="sm" className="w-full bg-gradient-primary hover:shadow-premium text-white font-semibold hover-lift transition-all duration-300 rounded-xl">
+          <Button 
+            size="sm" 
+            className={cn(
+              "w-full font-semibold hover-lift transition-all duration-300 rounded-xl",
+              trialStatus.shouldShowUpgrade() 
+                ? "bg-error hover:bg-error/90 text-white shadow-error animate-pulse" 
+                : "bg-gradient-primary hover:shadow-premium text-white"
+            )}
+          >
             <Crown className="h-4 w-4 mr-2" />
-            Upgrade Plan
+            {trialStatus.isTrialExpired 
+              ? "Upgrade Now!" 
+              : trialStatus.isLastDay 
+              ? "Upgrade Today!" 
+              : "Upgrade Plan"
+            }
             <Sparkles className="h-4 w-4 ml-2" />
           </Button>
         </Link>
+        
+        {/* Trial expiration warning */}
+        {trialStatus.shouldShowUpgrade() && (
+          <div className="mt-3 p-3 bg-error/10 border border-error/20 rounded-lg">
+            <p className="text-xs text-error font-medium text-center">
+              {trialStatus.isTrialExpired 
+                ? "Your trial has expired. Upgrade to continue using VoiceLead." 
+                : "Your trial expires today! Upgrade now to avoid service interruption."
+              }
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Navigation */}
@@ -106,8 +136,8 @@ export const Sidebar = ({ className }: SidebarProps) => {
                 isActive ? "text-white scale-110" : "group-hover:scale-110"
               )} />
               <span className="relative z-10">{item.name}</span>
-              {item.name === 'Campaigns' && (
-                <Badge className="ml-auto bg-accent/20 text-accent text-xs border-accent/30 hover-scale">3</Badge>
+              {item.name === 'Campaigns' && campaigns.length > 0 && (
+                <Badge className="ml-auto bg-accent/20 text-accent text-xs border-accent/30 hover-scale">{campaigns.length}</Badge>
               )}
               {!isActive && (
                 <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
