@@ -88,7 +88,7 @@ const About = () => {
           <div className="container mx-auto section-padding relative z-10">
             <div className="max-w-4xl mx-auto text-center animate-fade-up">
               <Badge className="bg-primary-ultralight text-primary border-primary/20 mb-6">
-                🚀 About VoiceLead
+                🚀 About VoiceReach
               </Badge>
               <h1 className="text-4xl md:text-6xl font-bold font-display leading-tight mb-6">
                 <span className="text-text-primary">Revolutionizing</span>
@@ -167,7 +167,7 @@ const About = () => {
                       <p className="text-text-muted leading-relaxed">
                         We discovered that voice messages had 300%+ higher response rates than text. 
                         But recording individual voice messages for thousands of prospects wasn't scalable. 
-                        That's when we decided to build VoiceLead.
+                        That's when we decided to build VoiceReach.
                       </p>
                     </CardContent>
                   </Card>
@@ -186,7 +186,7 @@ const About = () => {
                 <span className="text-gradient-primary"> Values</span>
               </h2>
               <p className="text-xl text-text-muted max-w-2xl mx-auto">
-                The principles that guide everything we do at VoiceLead
+                The principles that guide everything we do at VoiceReach
               </p>
             </div>
 
@@ -253,7 +253,7 @@ const About = () => {
                 </h2>
                 <p className="text-xl text-text-muted max-w-2xl mx-auto mb-8">
                   Be part of the voice outreach revolution. Start your free trial today 
-                  and see why 300+ agencies trust VoiceLead.
+                  and see why 300+ agencies trust VoiceReach.
                 </p>
                 <Button className="bg-gradient-primary hover:shadow-primary hover-lift" size="lg">
                   Start Free Trial

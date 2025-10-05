@@ -340,7 +340,7 @@ const Settings = () => {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-4 bg-surface/30 rounded-lg border border-border/50">
                       <div>
-                        <p className="font-medium text-text-primary">Facebook API</p>
+                        <p className="font-medium text-text-primary">Instagram API</p>
                         <p className="text-sm text-text-muted">For automated DM sending</p>
                       </div>
                       <Badge className="bg-accent/20 text-accent">Connected</Badge>

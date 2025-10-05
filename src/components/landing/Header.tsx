@@ -32,7 +32,7 @@ export function Header() {
               </div>
             </div>
             <span className="text-xl font-bold font-display text-gradient-primary">
-              VoiceLead
+              VoiceReach
             </span>
           </div>
 

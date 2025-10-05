@@ -8,7 +8,7 @@ export function TrustSection() {
       name: "Sarah Chen",
       role: "Marketing Director, GrowthLab",
       avatar: "SC",
-      content: "VoiceLead increased our Facebook DM response rate from 8% to 31%. The personalization is incredible.",
+      content: "VoiceReach increased our Instagram DM response rate from 8% to 31%. The personalization is incredible.",
       rating: 5,
       results: "+287% response rate"
     },
@@ -43,8 +43,8 @@ export function TrustSection() {
     },
     {
       icon: Shield,
-      title: "Facebook Safe",
-      description: "Built to comply with Facebook's terms of service"
+      title: "Instagram Safe",
+      description: "Built to comply with Instagram's terms of service"
     }
   ];
 
@@ -59,7 +59,7 @@ export function TrustSection() {
           </Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display mb-6">
             See Why Agencies Choose
-            <span className="text-gradient-primary block">VoiceLead</span>
+            <span className="text-gradient-primary block">VoiceReach</span>
           </h2>
           <p className="text-xl text-text-muted max-w-3xl mx-auto">
             Join hundreds of successful agencies using AI voice messaging to scale their outreach and book more meetings.

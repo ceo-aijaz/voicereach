@@ -42,12 +42,12 @@ const faqIcons = [
 
 const faqs = [
   {
-    question: "How does VoiceLead's voice cloning technology work?",
-    answer: "VoiceLead uses advanced AI to clone your voice with just 2 minutes of audio. Our technology analyzes your vocal patterns, tone, and inflection to create a realistic voice model that can generate personalized messages at scale while maintaining authenticity."
+    question: "How does VoiceReach's voice cloning technology work?",
+    answer: "VoiceReach uses advanced AI to clone your voice with just 2 minutes of audio. Our technology analyzes your vocal patterns, tone, and inflection to create a realistic voice model that can generate personalized messages at scale while maintaining authenticity."
   },
   {
-    question: "Is it safe to use multiple Facebook accounts?",
-    answer: "Yes, VoiceLead includes built-in anti-detection features like smart scheduling, human-like delays, and IP rotation. Our system mimics natural user behavior to keep your accounts safe while maximizing your outreach potential."
+    question: "Is it safe to use multiple Instagram accounts?",
+    answer: "Yes, VoiceReach includes built-in anti-detection features like smart scheduling, human-like delays, and IP rotation. Our system mimics natural user behavior to keep your accounts safe while maximizing your outreach potential."
   },
   {
     question: "What's the difference between the pricing plans?",
@@ -58,16 +58,16 @@ const faqs = [
     answer: "Our GPT-4 powered AI analyzes multiple data points including profile quality, engagement patterns, and business indicators to score leads from 1-100. This helps you prioritize high-intent prospects and improve conversion rates by up to 300%."
   },
   {
-    question: "Can I integrate VoiceLead with my existing CRM?",
+    question: "Can I integrate VoiceReach with my existing CRM?",
     answer: "Yes! Professional and Enterprise plans include API access and webhooks for seamless integration with popular CRMs like HubSpot, Salesforce, and Pipedrive. We also offer a built-in CRM for complete lead management."
   },
   {
     question: "What happens if my account gets flagged?",
-    answer: "VoiceLead's anti-detection system has a 99.9% success rate. In the rare case of an issue, our Enterprise plan includes 24/7 support to help resolve account problems. We also provide guidance on best practices to maintain account health."
+    answer: "VoiceReach's anti-detection system has a 99.9% success rate. In the rare case of an issue, our Enterprise plan includes 24/7 support to help resolve account problems. We also provide guidance on best practices to maintain account health."
   },
   {
     question: "Do you offer a free trial?",
-    answer: "Yes! All plans include a 14-day free trial with no credit card required. You'll have full access to all features in your chosen plan, allowing you to test VoiceLead's effectiveness before committing."
+    answer: "Yes! All plans include a 14-day free trial with no credit card required. You'll have full access to all features in your chosen plan, allowing you to test VoiceReach's effectiveness before committing."
   },
   {
     question: "How many voice tones can I create?",
@@ -83,7 +83,7 @@ const faqs = [
   },
   {
     question: "Can I scrape leads from specific hashtags and locations?",
-    answer: "Absolutely! VoiceLead's advanced lead scraping can extract qualified prospects from hashtags, followers, comments, and specific geographic locations. You can also filter by engagement level, follower count, and other criteria."
+    answer: "Absolutely! VoiceReach's advanced lead scraping can extract qualified prospects from hashtags, followers, comments, and specific geographic locations. You can also filter by engagement level, follower count, and other criteria."
   },
   {
     question: "How does the campaign automation work?",
@@ -110,7 +110,7 @@ export function FAQ() {
             </span>
           </h2>
           <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
-            Everything you need to know about VoiceLead's voice automation platform
+            Everything you need to know about VoiceReach's voice automation platform
           </p>
         </div>
 

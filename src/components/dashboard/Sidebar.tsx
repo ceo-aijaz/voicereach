@@ -58,7 +58,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
           <div className="w-8 h-8 bg-gradient-primary rounded-xl flex items-center justify-center shadow-glow hover-scale">
             <Mic2 className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold font-display text-sidebar-foreground">VoiceLead</span>
+          <span className="text-xl font-bold font-display text-sidebar-foreground">VoiceReach</span>
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export const Sidebar = ({ className }: SidebarProps) => {
           <div className="mt-3 p-3 bg-error/10 border border-error/20 rounded-lg">
             <p className="text-xs text-error font-medium text-center">
               {trialStatus.isTrialExpired 
-                ? "Your trial has expired. Upgrade to continue using VoiceLead." 
+                ? "Your trial has expired. Upgrade to continue using VoiceReach." 
                 : "Your trial expires today! Upgrade now to avoid service interruption."
               }
             </p>

@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { 
   Mic2, 
-  Facebook, 
-  Target, 
+  Instagram, 
+  Target,
   Brain, 
   Workflow,
   BarChart3,
@@ -30,11 +30,11 @@ const features = [
     gradient: 'from-blue-500 to-purple-500'
   },
   {
-    icon: Facebook,
-    title: 'Facebook DM Automation',
+    icon: Instagram,
+    title: 'Instagram DM Automation',
     description: 'Send UpTo 1500 Voice DMs per month across multiple accounts with smart scheduling and anti-detection.',
     badge: 'Premium',
-    gradient: 'from-blue-500 to-blue-600'
+    gradient: 'from-purple-500 to-pink-600'
   },
   {
     icon: Target,
@@ -70,7 +70,7 @@ const stats = [
   { icon: Zap, value: '150+', label: 'DMs per account/day', color: 'text-warning' },
   { icon: Shield, value: '99.9%', label: 'Platform uptime', color: 'text-accent' },
   { icon: Clock, value: '5min', label: 'Setup time', color: 'text-primary' },
-  { icon: Users, value: '15+', label: 'Facebook accounts', color: 'text-blue-500' }
+  { icon: Users, value: '15+', label: 'Instagram accounts', color: 'text-purple-500' }
 ];
 
 export function Features() {
@@ -92,8 +92,8 @@ export function Features() {
             <span className="text-slate-900 dark:text-white">Built for Scale</span>
           </h2>
           <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-            From voice cloning to campaign automation, VoiceLead gives you everything needed to 
-            <span className="text-primary font-semibold"> dominate Facebook outreach</span> and 10x your response rates.
+            From voice cloning to campaign automation, VoiceReach gives you everything needed to 
+            <span className="text-primary font-semibold"> dominate Instagram outreach</span> and 10x your response rates.
           </p>
           <Link to="/auth">
             <Button className="bg-primary hover:bg-primary/90 text-white text-lg font-semibold px-8 py-4 h-auto rounded-lg transition-all duration-200 hover:scale-105">

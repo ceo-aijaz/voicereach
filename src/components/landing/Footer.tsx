@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Mic, Zap, Facebook, Twitter, Linkedin, Youtube } from 'lucide-react';
+import { Mic, Zap, Instagram, Twitter, Linkedin, Youtube } from 'lucide-react';
 
 const footerLinks = {
   product: [
@@ -34,10 +34,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: 'https://facebook.com/voicelead', label: 'Facebook' },
-  { icon: Twitter, href: 'https://twitter.com/voicelead', label: 'Twitter' },
-  { icon: Linkedin, href: 'https://linkedin.com/company/voicelead', label: 'LinkedIn' },
-  { icon: Youtube, href: 'https://youtube.com/voicelead', label: 'YouTube' }
+  { icon: Instagram, href: 'https://instagram.com/voicereach', label: 'Instagram' },
+  { icon: Twitter, href: 'https://twitter.com/voicereach', label: 'Twitter' },
+  { icon: Linkedin, href: 'https://linkedin.com/company/voicereach', label: 'LinkedIn' },
+  { icon: Youtube, href: 'https://youtube.com/voicereach', label: 'YouTube' }
 ];
 
 export function Footer() {
@@ -58,12 +58,12 @@ export function Footer() {
                 </div>
               </div>
               <span className="text-xl font-bold font-display text-gradient-primary">
-                VoiceLead
+                VoiceReach
               </span>
             </div>
             
             <p className="text-text-muted mb-6 max-w-sm">
-              The world's most advanced Facebook voice automation platform. 
+              The world's most advanced Instagram voice automation platform. 
               Turn your voice into your most powerful sales asset.
             </p>
             
@@ -157,7 +157,7 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0">
               <h4 className="font-semibold text-text-primary mb-2">
-                Stay updated with VoiceLead
+                Stay updated with VoiceReach
               </h4>
               <p className="text-text-muted">
                 Get the latest features, tips, and agency growth strategies.
@@ -182,7 +182,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-border/50 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between text-sm text-text-muted">
-            <p>© 2024 VoiceLead. All rights reserved.</p>
+            <p>© 2024 VoiceReach. All rights reserved.</p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
               <span>🇺🇸 Made in USA</span>
               <span>•</span>

@@ -16,7 +16,6 @@ import Onboarding from "./pages/Onboarding";
 import Pricing from "./pages/PricingPage";
 import Dashboard from "./pages/Dashboard";
 import Leads from "./pages/Leads";
-import FacebookConnect from "./pages/FacebookConnect";
 import InstagramConnect from "./pages/InstagramConnect";
 import InstagramAccounts from "./pages/InstagramAccounts";
 import Campaigns from "./pages/Campaigns";
@@ -73,7 +72,7 @@ const App = () => (
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
               <Route path="/leads" element={<ProtectedRoute><Leads /></ProtectedRoute>} />
-              <Route path="/facebook" element={<ProtectedRoute><FacebookConnect /></ProtectedRoute>} />
+              <Route path="/facebook" element={<ProtectedRoute><InstagramAccounts /></ProtectedRoute>} />
               <Route path="/instagram" element={<ProtectedRoute><InstagramAccounts /></ProtectedRoute>} />
               <Route path="/instagram/connect" element={<ProtectedRoute><InstagramConnect /></ProtectedRoute>} />
               <Route path="/campaigns" element={<ProtectedRoute><Campaigns /></ProtectedRoute>} />
